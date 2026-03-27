@@ -75,6 +75,11 @@ export DASHSCOPE_API_KEY=你的百炼Key
 - `deepseek-v3`
 - `qwen3.5-35b-a3b`
 
+说明：
+
+- 这里使用 DashScope 只是为了做构建后的标准化回归验证
+- 最终交付给用户时，推荐使用通用 `LLM_API_BASE`、`LLM_API_KEY`、`LLM_MODEL`
+
 ## 6. 交付建议
 
 建议将以下内容作为交付产物保留：

@@ -2,25 +2,11 @@
   "modelProviders": {
     "openai": [
       {
-        "id": "qwen3-30b-a3b-instruct-2507",
-        "name": "qwen3-30b-a3b-instruct-2507",
-        "baseUrl": "https://dashscope.aliyuncs.com/compatible-mode/v1",
-        "description": "Qwen 30B A3B Instruct via DashScope",
-        "envKey": "DASHSCOPE_API_KEY"
-      },
-      {
-        "id": "deepseek-v3",
-        "name": "deepseek-v3",
-        "baseUrl": "https://dashscope.aliyuncs.com/compatible-mode/v1",
-        "description": "DeepSeek V3 via DashScope",
-        "envKey": "DASHSCOPE_API_KEY"
-      },
-      {
-        "id": "qwen3.5-35b-a3b",
-        "name": "qwen3.5-35b-a3b",
-        "baseUrl": "https://dashscope.aliyuncs.com/compatible-mode/v1",
-        "description": "Qwen 3.5 35B A3B via DashScope",
-        "envKey": "DASHSCOPE_API_KEY"
+        "id": "your-model-name",
+        "name": "OpenAI-Compatible Model",
+        "baseUrl": "https://your-openai-compatible-endpoint/v1",
+        "description": "Generic OpenAI-compatible endpoint example",
+        "envKey": "LLM_API_KEY"
       }
     ]
   },
@@ -30,6 +16,6 @@
     }
   },
   "model": {
-    "name": "qwen3-30b-a3b-instruct-2507"
+    "name": "your-model-name"
   }
 }

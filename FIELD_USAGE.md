@@ -76,11 +76,20 @@ mkdir -p /data/qwen-home
 
 ## 4. 启动容器
 
+最终用户推荐使用通用 OpenAI 兼容参数：
+
+- `LLM_API_BASE`
+- `LLM_API_KEY`
+- `LLM_MODEL`
+- 可选：`LLM_PROVIDER_NAME`
+
 最常用方式：
 
 ```bash
 docker run -it --rm \
-  -e DASHSCOPE_API_KEY=你的百炼Key \
+  -e LLM_API_BASE=https://your-openai-compatible-endpoint/v1 \
+  -e LLM_API_KEY=你的Key \
+  -e LLM_MODEL=你的模型名 \
   -v /data/project:/workspace \
   -v /data/qwen-home:/root/.qwen \
   ghcr.io/wzfukui/qwen-code-dev-container:0.13.0
@@ -92,7 +101,9 @@ docker run -it --rm \
 /workspace
 ```
 
-如果 `/root/.qwen/settings.json` 不存在，容器会自动生成默认模板。
+如果传入了 `LLM_API_BASE`、`LLM_API_KEY`、`LLM_MODEL`，容器启动时会自动生成对应的 `/root/.qwen/settings.json`。
+
+如果没有传这些变量，则回退到仓库里的通用模板配置。
 
 ## 5. 启动 Qwen Code
 
@@ -116,11 +127,7 @@ qwen -p "Explain this repository structure."
 /model
 ```
 
-默认已内置以下模型配置：
-
-- `qwen3-30b-a3b-instruct-2507`
-- `deepseek-v3`
-- `qwen3.5-35b-a3b`
+默认模型来自你传入的 `LLM_MODEL`，或者 `/root/.qwen/settings.json`。
 
 ## 7. 常见排查
 
@@ -134,9 +141,10 @@ qwen --version
 
 如果模型调用失败，优先检查：
 
-- `DASHSCOPE_API_KEY` 是否正确
-- 现场机器是否能访问 `https://dashscope.aliyuncs.com/compatible-mode/v1`
-- `/root/.qwen/settings.json` 是否存在且模型名正确
+- `LLM_API_KEY` 是否正确
+- `LLM_API_BASE` 是否可达
+- `LLM_MODEL` 是否是目标网关支持的模型名
+- `/root/.qwen/settings.json` 是否存在且内容正确
 
 ## 8. 一线最短路径
 
@@ -144,5 +152,5 @@ qwen --version
 
 1. `docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.0`
 2. `mkdir -p /data/project /data/qwen-home`
-3. `docker run -it --rm -e DASHSCOPE_API_KEY=你的Key -v /data/project:/workspace -v /data/qwen-home:/root/.qwen ghcr.io/wzfukui/qwen-code-dev-container:0.13.0`
+3. `docker run -it --rm -e LLM_API_BASE=你的地址 -e LLM_API_KEY=你的Key -e LLM_MODEL=你的模型 -v /data/project:/workspace -v /data/qwen-home:/root/.qwen ghcr.io/wzfukui/qwen-code-dev-container:0.13.0`
 4. 容器内执行 `qwen`
