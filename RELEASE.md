@@ -22,7 +22,7 @@
 
 - 源码仓库内容
 - Release Notes
-- 附件 `qwen-code-dev-0.13.0.tar.gz`
+- 附件 `qwen-code-dev-0.13.1.tar.gz`
 - 附件 `FIELD_USAGE.md`
 - 附件 `PYTHON_COMPONENTS.md`
 - 可选附件：
@@ -36,7 +36,7 @@
 
 ```bash
 release/
-  qwen-code-dev-0.13.0.tar.gz
+  qwen-code-dev-0.13.1.tar.gz
   FIELD_USAGE.md
   PYTHON_COMPONENTS.md
   qwen-settings.template.json
@@ -47,20 +47,20 @@ release/
 
 ```bash
 cd release
-shasum -a 256 qwen-code-dev-0.13.0.tar.gz > checksums.txt
+shasum -a 256 qwen-code-dev-0.13.1.tar.gz > checksums.txt
 ```
 
 ## 4. 打 Git 标签
 
 ```bash
-git tag -a v0.13.0 -m "Release v0.13.0"
-git push origin v0.13.0
+git tag -a v0.13.1 -m "Release v0.13.1"
+git push origin v0.13.1
 ```
 
 推送标签后，仓库内的 GitHub Actions 会自动把镜像推送到：
 
 ```bash
-ghcr.io/wzfukui/qwen-code-dev-container:0.13.0
+ghcr.io/wzfukui/qwen-code-dev-container:0.13.1
 ghcr.io/wzfukui/qwen-code-dev-container:0.13
 ghcr.io/wzfukui/qwen-code-dev-container:latest
 ```
@@ -70,10 +70,10 @@ ghcr.io/wzfukui/qwen-code-dev-container:latest
 示例：
 
 ```bash
-gh release create v0.13.0 \
-  --title "v0.13.0" \
+gh release create v0.13.1 \
+  --title "v0.13.1" \
   --notes "首个现场交付版本，包含 qwen-code 开发容器、现场使用文档和 Python 组件清单。" \
-  /path/to/release/qwen-code-dev-0.13.0.tar.gz \
+  /path/to/release/qwen-code-dev-0.13.1.tar.gz \
   /path/to/release/FIELD_USAGE.md \
   /path/to/release/PYTHON_COMPONENTS.md \
   /path/to/release/qwen-settings.template.json \

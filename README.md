@@ -43,7 +43,7 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:latest
 或拉取固定版本：
 
 ```bash
-docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.0
+docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.1
 ```
 
 ## 项目目标
@@ -66,6 +66,7 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.0
 
 ## 当前版本
 
+- 项目交付版本：`0.13.1`
 - `qwen-code`: `0.13.0`
 - `Python`: `3.13`
 - `Node.js`: `22`
@@ -96,14 +97,14 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.0
 最短路径如下：
 
 ```bash
-docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.0
+docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.1
 docker run -it --rm \
   -e LLM_API_BASE=https://your-openai-compatible-endpoint/v1 \
   -e LLM_API_KEY=你的Key \
   -e LLM_MODEL=你的模型名 \
   -v /data/project:/workspace \
   -v /data/qwen-home:/root/.qwen \
-  ghcr.io/wzfukui/qwen-code-dev-container:0.13.0
+  ghcr.io/wzfukui/qwen-code-dev-container:0.13.1
 ```
 
 容器内执行：
@@ -131,7 +132,7 @@ qwen
 - 打 `v*` 标签时自动构建并推送到 `ghcr.io/wzfukui/qwen-code-dev-container`
 - 默认输出标签：
   - `latest`
-  - `0.13.0`
+  - `0.13.1`
   - `0.13`
 
 如果首次推送后包默认不是公开可见，需要在 GitHub 的 Package 页面手工调整为 `public`。
