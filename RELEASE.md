@@ -65,9 +65,21 @@ ghcr.io/wzfukui/qwen-code-dev-container:0.13
 ghcr.io/wzfukui/qwen-code-dev-container:latest
 ```
 
+同时还会自动完成以下动作：
+
+- 从已发布镜像生成离线包 `qwen-code-dev-0.13.1.tar.gz`
+- 生成 `checksums.txt`
+- 自动创建或更新同名 GitHub Release
+- 自动上传以下 Release 附件：
+  - `qwen-code-dev-0.13.1.tar.gz`
+  - `FIELD_USAGE.md`
+  - `PYTHON_COMPONENTS.md`
+  - `qwen-settings.template.json`
+  - `checksums.txt`
+
 ## 5. 用 gh 创建 Release
 
-示例：
+如果需要手工创建，示例：
 
 ```bash
 gh release create v0.13.1 \
@@ -99,3 +111,12 @@ gh release create v0.13.1 \
 - 开发者看 [BUILD.md](./BUILD.md)
 - 现场人员看 [FIELD_USAGE.md](./FIELD_USAGE.md)
 - 运维或采购确认组件范围看 [PYTHON_COMPONENTS.md](./PYTHON_COMPONENTS.md)
+
+## 8. 当前建议
+
+现在仓库已经支持自动化发布，推荐流程就是：
+
+1. 更新版本号
+2. 提交并推送 `main`
+3. 打 `v*` 标签
+4. 等待 GitHub Actions 自动完成 GHCR 和 Release 附件发布

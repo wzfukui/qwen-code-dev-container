@@ -5,9 +5,14 @@ on:
     tags:
       - "v*"
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: "Release tag, for example v0.13.1"
+        required: true
+        type: string
 
 permissions:
-  contents: read
+  contents: write
   packages: write
 
 jobs:
@@ -16,6 +21,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Derive version variables
+        run: |
+          VERSION_INPUT="${{ github.event.inputs.release_tag }}"
+          if [ -n "${VERSION_INPUT}" ]; then
+            VERSION="${VERSION_INPUT}"
+          else
+            VERSION="${GITHUB_REF_NAME}"
+          fi
+          echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
+          echo "VERSION_STRIPPED=${VERSION#v}" >> "$GITHUB_ENV"
+          echo "IMAGE_NAME=ghcr.io/${GITHUB_REPOSITORY}" >> "$GITHUB_ENV"
+          echo "LOCAL_IMAGE_NAME=qwen-code-dev" >> "$GITHUB_ENV"
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -45,3 +63,70 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Prepare release assets
+        run: |
+          mkdir -p release
+          docker pull "${IMAGE_NAME}:${VERSION_STRIPPED}"
+          docker tag "${IMAGE_NAME}:${VERSION_STRIPPED}" "${LOCAL_IMAGE_NAME}:${VERSION_STRIPPED}"
+          docker save "${IMAGE_NAME}:${VERSION_STRIPPED}" "${LOCAL_IMAGE_NAME}:${VERSION_STRIPPED}" | gzip > "release/qwen-code-dev-${VERSION_STRIPPED}.tar.gz"
+          cp FIELD_USAGE.md release/
+          cp PYTHON_COMPONENTS.md release/
+          cp qwen-settings.template.json release/
+          (cd release && sha256sum "qwen-code-dev-${VERSION_STRIPPED}.tar.gz" > checksums.txt)
+
+      - name: Generate release notes
+        run: |
+          cat > release-notes.md <<EOF
+          ## ${VERSION}
+
+          本次版本已自动完成以下交付：
+
+          - 推送 GHCR 在线镜像
+          - 生成离线导入包 \`qwen-code-dev-${VERSION_STRIPPED}.tar.gz\`
+          - 自动附加现场使用文档、Python 组件清单和配置模板到 GitHub Release
+
+          ## 在线使用
+
+          \`\`\`bash
+          docker pull ${IMAGE_NAME}:${VERSION_STRIPPED}
+          \`\`\`
+
+          ## 离线使用
+
+          \`\`\`bash
+          docker load -i qwen-code-dev-${VERSION_STRIPPED}.tar.gz
+          docker run -it --rm \\
+            -e LLM_API_BASE=https://your-openai-compatible-endpoint/v1 \\
+            -e LLM_API_KEY=你的Key \\
+            -e LLM_MODEL=你的模型名 \\
+            -v /data/project:/workspace \\
+            -v /data/qwen-home:/root/.qwen \\
+            qwen-code-dev:${VERSION_STRIPPED}
+          \`\`\`
+
+          ## 附件
+
+          - \`qwen-code-dev-${VERSION_STRIPPED}.tar.gz\`
+          - \`FIELD_USAGE.md\`
+          - \`PYTHON_COMPONENTS.md\`
+          - \`qwen-settings.template.json\`
+          - \`checksums.txt\`
+          EOF
+
+      - name: Create or update release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view "${VERSION}" >/dev/null 2>&1; then
+            gh release edit "${VERSION}" --title "${VERSION}" --notes-file release-notes.md
+          else
+            gh release create "${VERSION}" --title "${VERSION}" --notes-file release-notes.md
+          fi
+          gh release upload "${VERSION}" \
+            "release/qwen-code-dev-${VERSION_STRIPPED}.tar.gz" \
+            "release/FIELD_USAGE.md" \
+            "release/PYTHON_COMPONENTS.md" \
+            "release/qwen-settings.template.json" \
+            "release/checksums.txt" \
+            --clobber
