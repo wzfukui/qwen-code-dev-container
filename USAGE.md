@@ -1,5 +1,7 @@
 # Qwen Code 开发容器使用手册
 
+本文件偏向开发环境和日常研发使用。如果是现场交付或一线部署，请优先使用 [FIELD_USAGE.md](./FIELD_USAGE.md)。
+
 ## 1. 进入开发容器
 
 ```bash

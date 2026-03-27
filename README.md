@@ -1,6 +1,6 @@
 # Qwen Code 开发容器
 
-这是一个面向内网研发和代码助手场景的 `qwen-code` 开发容器项目。它将官方 `qwen-code` CLI 与高版本 Python 开发环境整合到同一个镜像中，适合在服务器、跳板机、内网研发机或日常开发环境中直接挂载代码目录使用。
+这是一个面向内网研发和现场交付场景的 `qwen-code` 容器项目。它将官方 `qwen-code` CLI 与高版本 Python 开发环境整合到同一个镜像中，同时把“构建”和“现场使用”分开说明，避免一线使用者被构建步骤干扰。
 
 ## 项目目标
 
@@ -24,37 +24,42 @@
 - `deepseek-v3`
 - `qwen3.5-35b-a3b`
 
-## 目录说明
+## 文档分工
 
-- `Dockerfile`: 容器构建定义
-- `DEPLOYMENT.md`: 容器构建与部署手册
-- `USAGE.md`: 容器使用手册
-- `PYTHON_COMPONENTS.md`: Python 组件清单
-- `qwen-settings.template.json`: 默认 Qwen 配置模板
-- `scripts/build-image.sh`: 镜像构建脚本
-- `scripts/save-image.sh`: 镜像导出脚本
-- `scripts/model-smoke-test.sh`: 模型冒烟验证脚本
+- [FIELD_USAGE.md](./FIELD_USAGE.md)
+  现场使用文件，重点讲怎么拿到镜像包后 `load`、启动、运行
+- [BUILD.md](./BUILD.md)
+  构建文件，面向开发者和交付人员，重点讲怎么从源码构建和导出镜像
+- [PYTHON_COMPONENTS.md](./PYTHON_COMPONENTS.md)
+  Python 组件清单
+- [RELEASE.md](./RELEASE.md)
+  GitHub Release 发布方式和综合包建议
 
-## 快速开始
+## 一线用户入口
+
+如果你是现场使用者，请优先看 [FIELD_USAGE.md](./FIELD_USAGE.md)。
+
+最短路径如下：
 
 ```bash
-export DASHSCOPE_API_KEY=你的百炼Key
-docker build -t qwen-code-dev:0.13.0 .
+docker load -i qwen-code-dev-0.13.0.tar.gz
 docker run -it --rm \
-  -e DASHSCOPE_API_KEY \
-  -v /your/project:/workspace \
-  -v /your/qwen-home:/root/.qwen \
+  -e DASHSCOPE_API_KEY=你的百炼Key \
+  -v /data/project:/workspace \
+  -v /data/qwen-home:/root/.qwen \
   qwen-code-dev:0.13.0
 ```
 
-进入容器后可直接执行：
+容器内执行：
 
 ```bash
 qwen
 ```
 
-## 文档
+## 开发者入口
 
-- 构建与部署说明见 [DEPLOYMENT.md](/Users/donaldford/code/SuperBody/dev/qwen-code-dev-container/DEPLOYMENT.md)
-- 日常使用说明见 [USAGE.md](/Users/donaldford/code/SuperBody/dev/qwen-code-dev-container/USAGE.md)
-- Python 组件清单见 [PYTHON_COMPONENTS.md](/Users/donaldford/code/SuperBody/dev/qwen-code-dev-container/PYTHON_COMPONENTS.md)
+如果你是开发者或交付打包人员，请看 [BUILD.md](./BUILD.md)。
+
+## Release 建议
+
+镜像包不应进入 Git 仓库，建议作为 GitHub Release 附件发布。具体做法见 [RELEASE.md](./RELEASE.md)。
