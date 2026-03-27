@@ -2,6 +2,22 @@
 
 这是一个面向内网研发和现场交付场景的 `qwen-code` 容器项目。它将官方 `qwen-code` CLI 与高版本 Python 开发环境整合到同一个镜像中，同时把“构建”和“现场使用”分开说明，避免一线使用者被构建步骤干扰。
 
+## 在线分发
+
+本项目已接入 GHCR 发布流程。版本发布后，最终用户可以直接拉取镜像，而不必先下载离线包。
+
+示例：
+
+```bash
+docker pull ghcr.io/wzfukui/qwen-code-dev-container:latest
+```
+
+或拉取固定版本：
+
+```bash
+docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.0
+```
+
 ## 项目目标
 
 - 在容器内直接运行 `qwen`
@@ -42,12 +58,12 @@
 最短路径如下：
 
 ```bash
-docker load -i qwen-code-dev-0.13.0.tar.gz
+docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.0
 docker run -it --rm \
   -e DASHSCOPE_API_KEY=你的百炼Key \
   -v /data/project:/workspace \
   -v /data/qwen-home:/root/.qwen \
-  qwen-code-dev:0.13.0
+  ghcr.io/wzfukui/qwen-code-dev-container:0.13.0
 ```
 
 容器内执行：
@@ -63,3 +79,15 @@ qwen
 ## Release 建议
 
 镜像包不应进入 Git 仓库，建议作为 GitHub Release 附件发布。具体做法见 [RELEASE.md](./RELEASE.md)。
+
+## GHCR 发布说明
+
+仓库已包含 GitHub Actions 工作流：
+
+- 打 `v*` 标签时自动构建并推送到 `ghcr.io/wzfukui/qwen-code-dev-container`
+- 默认输出标签：
+  - `latest`
+  - `0.13.0`
+  - `0.13`
+
+如果首次推送后包默认不是公开可见，需要在 GitHub 的 Package 页面手工调整为 `public`。

@@ -2,6 +2,18 @@
 
 本文档说明如何把本项目做成适合交付的一线综合包，并通过 GitHub Release 发布。
 
+## 0. Release 和 GHCR 的分工
+
+建议同时保留两条分发线：
+
+- GHCR：给能联网的最终用户直接 `docker pull`
+- GitHub Release：给离线环境下载镜像包和现场文档
+
+推荐理解方式：
+
+- 在线用户优先走 GHCR
+- 现场交付和内网用户走 Release 附件
+
 ## 1. 推荐发布内容
 
 建议不要把镜像包放进 Git 仓库，而是作为 Release 附件发布。
@@ -43,6 +55,14 @@ shasum -a 256 qwen-code-dev-0.13.0.tar.gz > checksums.txt
 ```bash
 git tag -a v0.13.0 -m "Release v0.13.0"
 git push origin v0.13.0
+```
+
+推送标签后，仓库内的 GitHub Actions 会自动把镜像推送到：
+
+```bash
+ghcr.io/wzfukui/qwen-code-dev-container:0.13.0
+ghcr.io/wzfukui/qwen-code-dev-container:0.13
+ghcr.io/wzfukui/qwen-code-dev-container:latest
 ```
 
 ## 5. 用 gh 创建 Release

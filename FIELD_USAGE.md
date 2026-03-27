@@ -2,6 +2,31 @@
 
 本文档面向一线使用者，重点说明如何拿到交付包后，在现场机器上完成解压、导入、启动和使用。
 
+## 0. 两种使用方式
+
+推荐优先级如下：
+
+1. 有外网或可访问 GitHub Container Registry 时，直接 `docker pull`
+2. 无法联网或需要离线交付时，再使用 `tar.gz` 离线包
+
+### 在线拉取
+
+```bash
+docker pull ghcr.io/wzfukui/qwen-code-dev-container:latest
+```
+
+或固定版本：
+
+```bash
+docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.0
+```
+
+### 离线导入
+
+```bash
+docker load -i qwen-code-dev-0.13.0.tar.gz
+```
+
 ## 1. 你会拿到什么
 
 现场建议交付以下文件：
@@ -58,7 +83,7 @@ docker run -it --rm \
   -e DASHSCOPE_API_KEY=你的百炼Key \
   -v /data/project:/workspace \
   -v /data/qwen-home:/root/.qwen \
-  qwen-code-dev:0.13.0
+  ghcr.io/wzfukui/qwen-code-dev-container:0.13.0
 ```
 
 进入后默认目录是：
@@ -117,7 +142,7 @@ qwen --version
 
 如果你只关心“怎么用”，最短步骤就是：
 
-1. `docker load -i qwen-code-dev-0.13.0.tar.gz`
+1. `docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.0`
 2. `mkdir -p /data/project /data/qwen-home`
-3. `docker run -it --rm -e DASHSCOPE_API_KEY=你的Key -v /data/project:/workspace -v /data/qwen-home:/root/.qwen qwen-code-dev:0.13.0`
+3. `docker run -it --rm -e DASHSCOPE_API_KEY=你的Key -v /data/project:/workspace -v /data/qwen-home:/root/.qwen ghcr.io/wzfukui/qwen-code-dev-container:0.13.0`
 4. 容器内执行 `qwen`
