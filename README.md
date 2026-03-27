@@ -61,7 +61,7 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:latest
 或拉取固定版本：
 
 ```bash
-docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.1
+docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.2
 ```
 
 ## 项目目标
@@ -84,7 +84,7 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.1
 
 ## 当前版本
 
-- 项目交付版本：`0.13.1`
+- 项目交付版本：`0.13.2`
 - `qwen-code`: `0.13.0`
 - `Python`: `3.13`
 - `Node.js`: `24`
@@ -115,14 +115,14 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.1
 最短路径如下：
 
 ```bash
-docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.1
+docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.2
 docker run -it --rm \
   -e LLM_API_BASE=https://your-openai-compatible-endpoint/v1 \
   -e LLM_API_KEY=你的Key \
   -e LLM_MODEL=你的模型名 \
   -v /data/project:/workspace \
   -v /data/qwen-home:/root/.qwen \
-  ghcr.io/wzfukui/qwen-code-dev-container:0.13.1
+  ghcr.io/wzfukui/qwen-code-dev-container:0.13.2
 ```
 
 容器内执行：
@@ -150,7 +150,7 @@ qwen
 - 打 `v*` 标签时自动构建并推送到 `ghcr.io/wzfukui/qwen-code-dev-container`
 - 默认输出标签：
   - `latest`
-  - `0.13.1`
+  - `0.13.2`
   - `0.13`
 - GitHub Actions 已显式启用 Node 24 运行模式，提前规避 Node 20 弃用影响
 

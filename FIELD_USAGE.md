@@ -18,20 +18,20 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:latest
 或固定版本：
 
 ```bash
-docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.1
+docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.2
 ```
 
 ### 离线导入
 
 ```bash
-docker load -i qwen-code-dev-0.13.1.tar.gz
+docker load -i qwen-code-dev-0.13.2.tar.gz
 ```
 
 ## 1. 你会拿到什么
 
 现场建议交付以下文件：
 
-- `qwen-code-dev-0.13.1.tar.gz`
+- `qwen-code-dev-0.13.2.tar.gz`
 - `FIELD_USAGE.md`
 - `PYTHON_COMPONENTS.md`
 
@@ -45,13 +45,13 @@ docker load -i qwen-code-dev-0.13.1.tar.gz
 假设你已经拿到了镜像包：
 
 ```bash
-ls -lh qwen-code-dev-0.13.1.tar.gz
+ls -lh qwen-code-dev-0.13.2.tar.gz
 ```
 
 导入 Docker：
 
 ```bash
-docker load -i qwen-code-dev-0.13.1.tar.gz
+docker load -i qwen-code-dev-0.13.2.tar.gz
 ```
 
 确认镜像存在：
@@ -92,7 +92,7 @@ docker run -it --rm \
   -e LLM_MODEL=你的模型名 \
   -v /data/project:/workspace \
   -v /data/qwen-home:/root/.qwen \
-  ghcr.io/wzfukui/qwen-code-dev-container:0.13.1
+  ghcr.io/wzfukui/qwen-code-dev-container:0.13.2
 ```
 
 进入后默认目录是：
@@ -150,7 +150,7 @@ qwen --version
 
 如果你只关心“怎么用”，最短步骤就是：
 
-1. `docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.1`
+1. `docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.2`
 2. `mkdir -p /data/project /data/qwen-home`
-3. `docker run -it --rm -e LLM_API_BASE=你的地址 -e LLM_API_KEY=你的Key -e LLM_MODEL=你的模型 -v /data/project:/workspace -v /data/qwen-home:/root/.qwen ghcr.io/wzfukui/qwen-code-dev-container:0.13.1`
+3. `docker run -it --rm -e LLM_API_BASE=你的地址 -e LLM_API_KEY=你的Key -e LLM_MODEL=你的模型 -v /data/project:/workspace -v /data/qwen-home:/root/.qwen ghcr.io/wzfukui/qwen-code-dev-container:0.13.2`
 4. 容器内执行 `qwen`

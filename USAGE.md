@@ -11,7 +11,7 @@ docker run -it --rm \
   -e LLM_MODEL=你的模型名 \
   -v /your/project:/workspace \
   -v /your/qwen-home:/root/.qwen \
-  qwen-code-dev:0.13.1
+  qwen-code-dev:0.13.2
 ```
 
 进入后默认位于 `/workspace`。
