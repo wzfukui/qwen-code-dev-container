@@ -120,3 +120,12 @@ gh release create v0.13.1 \
 2. 提交并推送 `main`
 3. 打 `v*` 标签
 4. 等待 GitHub Actions 自动完成 GHCR 和 Release 附件发布
+
+## 9. Node 版本准备
+
+为了提前适配 GitHub Actions 对 Node 20 的弃用，本仓库已做两项准备：
+
+- 容器基础 Node 版本升级到 `24`
+- GitHub Actions 显式启用 `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true`
+
+这样后续继续升级上游 `qwen-code` 时，运行基线会更稳。

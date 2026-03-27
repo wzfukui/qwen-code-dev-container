@@ -87,7 +87,7 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.1
 - 项目交付版本：`0.13.1`
 - `qwen-code`: `0.13.0`
 - `Python`: `3.13`
-- `Node.js`: `22`
+- `Node.js`: `24`
 
 ## 已验证模型
 
@@ -152,6 +152,7 @@ qwen
   - `latest`
   - `0.13.1`
   - `0.13`
+- GitHub Actions 已显式启用 Node 24 运行模式，提前规避 Node 20 弃用影响
 
 如果首次推送后包默认不是公开可见，需要在 GitHub 的 Package 页面手工调整为 `public`。
 

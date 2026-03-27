@@ -1,4 +1,4 @@
-FROM docker.m.daocloud.io/library/node:22-bookworm-slim AS node_runtime
+FROM docker.m.daocloud.io/library/node:24-bookworm-slim AS node_runtime
 
 FROM python:3.13-slim-bookworm
 
