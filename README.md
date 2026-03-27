@@ -2,6 +2,27 @@
 
 这是一个面向内网研发和现场交付场景的 `qwen-code` 容器项目。它将官方 `qwen-code` CLI 与高版本 Python 开发环境整合到同一个镜像中，同时把“构建”和“现场使用”分开说明，避免一线使用者被构建步骤干扰。
 
+## 上游项目
+
+本项目以上游官方仓库为基准：
+
+- 上游地址：`https://github.com/QwenLM/qwen-code`
+- 上游 npm 包：`@qwen-code/qwen-code`
+
+本仓库的定位不是替代上游，而是围绕上游 `qwen-code` 做容器化、交付封装和现场使用优化。
+
+## 致敬与遵从
+
+向 `QwenLM/qwen-code` 官方项目致敬。
+
+本仓库遵循以下原则：
+
+- 尽量跟随上游官方项目的使用方式和行为语义
+- 容器内直接安装和运行上游官方 `qwen-code` CLI
+- 仅在部署、运行时注入、镜像分发和现场交付层做增强
+- 许可证与上游保持一致，采用 Apache-2.0
+- 保留对上游项目来源的明确说明
+
 容器的最终用户入口参数是通用 OpenAI 兼容接口变量，而不是固定供应商变量：
 
 - `LLM_API_BASE`
@@ -32,6 +53,16 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.0
 - 支持通过任意 OpenAI 兼容接口接入模型
 - 预装常用 Python 研发组件、数据库客户端、Kafka 组件和 `fastmcp`
 - 提供可复用的构建脚本、部署手册、使用手册和组件清单
+
+## 一致化原则
+
+这里说的“一致化遵从”，本仓库当前按以下边界处理：
+
+- `qwen` CLI 本体来自上游官方 npm 包
+- 运行入口仍然遵循上游的 `settings.json` 模型配置机制
+- 本仓库新增的只是容器入口变量到 `settings.json` 的转换层
+- 不修改上游协议栈，不替换上游 CLI 的核心行为
+- 最终用户如需回到原生上游方式，仍可直接使用标准 `settings.json`
 
 ## 当前版本
 
@@ -88,6 +119,10 @@ qwen
 ## Release 建议
 
 镜像包不应进入 Git 仓库，建议作为 GitHub Release 附件发布。具体做法见 [RELEASE.md](./RELEASE.md)。
+
+## 许可证
+
+本仓库许可证与上游保持一致，使用 Apache-2.0。详见 [LICENSE](./LICENSE) 和 [NOTICE](./NOTICE)。
 
 ## GHCR 发布说明
 

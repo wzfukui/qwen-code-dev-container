@@ -1,0 +1,19 @@
+This repository packages and distributes a developer container around the
+official Qwen Code project.
+
+Upstream project:
+  https://github.com/QwenLM/qwen-code
+
+This repository follows the upstream Qwen Code project for CLI behavior,
+interaction model, and protocol compatibility. The work here focuses on:
+
+- containerization
+- deployment packaging
+- field delivery documentation
+- OpenAI-compatible runtime configuration
+
+Acknowledgment:
+Qwen Code is the upstream open-source terminal agent maintained by QwenLM.
+This repository is not a replacement for the upstream project. It is a
+delivery-oriented container wrapper intended to simplify deployment and
+internal usage while preserving upstream usage semantics as much as possible.
