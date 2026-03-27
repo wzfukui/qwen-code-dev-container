@@ -1,0 +1,7 @@
+.git
+.DS_Store
+image
+tmp
+*.tar
+*.tar.gz
+*.log
