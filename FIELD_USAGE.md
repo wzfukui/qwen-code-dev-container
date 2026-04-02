@@ -9,14 +9,14 @@
 标准方式就是：
 
 ```bash
-docker load -i qwen-code-dev-0.13.2.tar.gz
+docker load -i qwen-code-dev-0.13.3.tar.gz
 ```
 
 ## 1. 你会拿到什么
 
 现场建议交付以下文件：
 
-- `qwen-code-dev-0.13.2.tar.gz`
+- `qwen-code-dev-0.13.3.tar.gz`
 - `FIELD_USAGE.md`
 - `PYTHON_COMPONENTS.md`
 
@@ -30,13 +30,13 @@ docker load -i qwen-code-dev-0.13.2.tar.gz
 假设你已经拿到了镜像包：
 
 ```bash
-ls -lh qwen-code-dev-0.13.2.tar.gz
+ls -lh qwen-code-dev-0.13.3.tar.gz
 ```
 
 导入 Docker：
 
 ```bash
-docker load -i qwen-code-dev-0.13.2.tar.gz
+docker load -i qwen-code-dev-0.13.3.tar.gz
 ```
 
 确认镜像存在：
@@ -67,7 +67,7 @@ mkdir -p /data/qwen-home
 docker run -it --rm \
   -v /data/project:/workspace \
   -v /data/qwen-home:/root/.qwen \
-  qwen-code-dev:0.13.2
+  qwen-code-dev:0.13.3
 ```
 
 进入后默认目录是：
@@ -162,10 +162,10 @@ qwen --version
 
 如果你只关心“怎么用”，最短步骤就是：
 
-1. 将 `qwen-code-dev-0.13.2.tar.gz` 拷贝到现场机器
+1. 将 `qwen-code-dev-0.13.3.tar.gz` 拷贝到现场机器
 2. `mkdir -p /data/project /data/qwen-home`
-3. `docker load -i qwen-code-dev-0.13.2.tar.gz`
-4. `docker run -it --rm -v /data/project:/workspace -v /data/qwen-home:/root/.qwen qwen-code-dev:0.13.2`
+3. `docker load -i qwen-code-dev-0.13.3.tar.gz`
+4. `docker run -it --rm -v /data/project:/workspace -v /data/qwen-home:/root/.qwen qwen-code-dev:0.13.3`
 5. 容器里执行 `cp /opt/qwen-dev/qwen-settings.template.json /root/.qwen/settings.json`
 6. 编辑 `/root/.qwen/settings.json`
 7. 执行 `qwen`

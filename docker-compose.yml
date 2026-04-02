@@ -1,6 +1,6 @@
 services:
   qwen-code-dev:
-    image: qwen-code-dev:0.13.2
+    image: qwen-code-dev:0.13.3
     container_name: qwen-code-dev
     stdin_open: true
     tty: true

@@ -8,7 +8,7 @@
 docker run -it --rm \
   -v /your/project:/workspace \
   -v /your/qwen-home:/root/.qwen \
-  qwen-code-dev:0.13.2
+  qwen-code-dev:0.13.3
 ```
 
 进入后默认位于 `/workspace`。

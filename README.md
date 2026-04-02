@@ -61,7 +61,7 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:latest
 或拉取固定版本：
 
 ```bash
-docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.2
+docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.3
 ```
 
 ## 项目目标
@@ -83,7 +83,7 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.2
 
 ## 当前版本
 
-- 项目交付版本：`0.13.2`
+- 项目交付版本：`0.13.3`
 - `qwen-code`: `0.13.0`
 - `Python`: `3.13`
 - `Node.js`: `24`
@@ -114,11 +114,11 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.2
 最短路径如下：
 
 ```bash
-docker load -i qwen-code-dev-0.13.2.tar.gz
+docker load -i qwen-code-dev-0.13.3.tar.gz
 docker run -it --rm \
   -v /data/project:/workspace \
   -v /data/qwen-home:/root/.qwen \
-  qwen-code-dev:0.13.2
+  qwen-code-dev:0.13.3
 ```
 
 容器内执行：
@@ -148,7 +148,7 @@ qwen
 - 打 `v*` 标签时自动构建并推送到 `ghcr.io/wzfukui/qwen-code-dev-container`
 - 默认输出标签：
   - `latest`
-  - `0.13.2`
+  - `0.13.3`
   - `0.13`
 - GitHub Actions 已显式启用 Node 24 运行模式，提前规避 Node 20 弃用影响
 

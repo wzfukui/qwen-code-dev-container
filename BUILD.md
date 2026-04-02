@@ -22,8 +22,8 @@
 - 如需代理，可设置：
 
 ```bash
-export HTTP_PROXY=http://192.168.15.88:8080
-export HTTPS_PROXY=http://192.168.15.88:8080
+export HTTP_PROXY=http://your-proxy-host:port
+export HTTPS_PROXY=http://your-proxy-host:port
 ```
 
 ## 3. 构建镜像
@@ -36,20 +36,20 @@ cd qwen-code-dev-container
 默认生成镜像：
 
 ```bash
-qwen-code-dev:0.13.2
+qwen-code-dev:0.13.3
 ```
 
 ## 4. 导出镜像包
 
 ```bash
 cd qwen-code-dev-container
-./scripts/save-image.sh qwen-code-dev:0.13.2 ./image/qwen-code-dev-0.13.2.tar.gz
+./scripts/save-image.sh qwen-code-dev:0.13.3 ./image/qwen-code-dev-0.13.3.tar.gz
 ```
 
 输出文件：
 
 ```bash
-./image/qwen-code-dev-0.13.2.tar.gz
+./image/qwen-code-dev-0.13.3.tar.gz
 ```
 
 ## 5. 构建后验证
@@ -57,16 +57,16 @@ cd qwen-code-dev-container
 基础版本检查：
 
 ```bash
-docker run --rm qwen-code-dev:0.13.2 python --version
-docker run --rm qwen-code-dev:0.13.2 node --version
-docker run --rm qwen-code-dev:0.13.2 qwen --version
+docker run --rm qwen-code-dev:0.13.3 python --version
+docker run --rm qwen-code-dev:0.13.3 node --version
+docker run --rm qwen-code-dev:0.13.3 qwen --version
 ```
 
 模型冒烟验证：
 
 ```bash
 export DASHSCOPE_API_KEY=你的百炼Key
-./scripts/model-smoke-test.sh qwen-code-dev:0.13.2 /tmp
+./scripts/model-smoke-test.sh qwen-code-dev:0.13.3 /tmp
 ```
 
 已验证模型：
@@ -85,7 +85,7 @@ export DASHSCOPE_API_KEY=你的百炼Key
 
 建议将以下内容作为交付产物保留：
 
-- 镜像包 `qwen-code-dev-0.13.2.tar.gz`
+- 镜像包 `qwen-code-dev-0.13.3.tar.gz`
 - [FIELD_USAGE.md](./FIELD_USAGE.md)
 - [PYTHON_COMPONENTS.md](./PYTHON_COMPONENTS.md)
 - 可选的样例 `.env` 或现场启动脚本

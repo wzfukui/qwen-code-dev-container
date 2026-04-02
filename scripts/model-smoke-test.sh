@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-IMAGE_TAG="${1:-qwen-code-dev:0.13.2}"
+IMAGE_TAG="${1:-qwen-code-dev:0.13.3}"
 WORKSPACE_DIR="${2:-$(pwd)}"
 
 if [ -z "${DASHSCOPE_API_KEY:-}" ]; then
