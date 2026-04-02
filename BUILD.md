@@ -7,7 +7,7 @@
 - `Dockerfile`: 容器构建定义
 - `docker-compose.yml`: 本地或开发机启动示例
 - `requirements.txt`: Python 组件清单
-- `qwen-settings.template.json`: 默认 Qwen 模型模板
+- `qwen-settings.template.json`: 默认 Qwen 配置模板示例
 - `scripts/build-image.sh`: 镜像构建脚本
 - `scripts/save-image.sh`: 镜像导出脚本
 - `scripts/model-smoke-test.sh`: 模型冒烟验证脚本
@@ -78,7 +78,8 @@ export DASHSCOPE_API_KEY=你的百炼Key
 说明：
 
 - 这里使用 DashScope 只是为了做构建后的标准化回归验证
-- 最终交付给用户时，推荐使用通用 `LLM_API_BASE`、`LLM_API_KEY`、`LLM_MODEL`
+- 最终交付给用户时，推荐直接维护 `settings.json`
+- 现场使用时不再推荐在 `docker run` 阶段通过环境变量自动写入模型配置
 
 ## 6. 交付建议
 

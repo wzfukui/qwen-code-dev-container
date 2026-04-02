@@ -6,10 +6,6 @@ services:
     tty: true
     working_dir: /workspace
     environment:
-      LLM_API_BASE: ${LLM_API_BASE:?set_in_env_or_env_file}
-      LLM_API_KEY: ${LLM_API_KEY:?set_in_env_or_env_file}
-      LLM_MODEL: ${LLM_MODEL:?set_in_env_or_env_file}
-      LLM_PROVIDER_NAME: ${LLM_PROVIDER_NAME:-OpenAI-Compatible Model}
       HTTP_PROXY: ${HTTP_PROXY:-}
       HTTPS_PROXY: ${HTTPS_PROXY:-}
       NO_PROXY: ${NO_PROXY:-}

@@ -6,9 +6,6 @@
 
 ```bash
 docker run -it --rm \
-  -e LLM_API_BASE=https://your-openai-compatible-endpoint/v1 \
-  -e LLM_API_KEY=你的Key \
-  -e LLM_MODEL=你的模型名 \
   -v /your/project:/workspace \
   -v /your/qwen-home:/root/.qwen \
   qwen-code-dev:0.13.2
@@ -16,13 +13,20 @@ docker run -it --rm \
 
 进入后默认位于 `/workspace`。
 
-## 2. 启动 Qwen Code 交互开发
+## 2. 容器内配置
+
+```bash
+cp /opt/qwen-dev/qwen-settings.template.json /root/.qwen/settings.json
+vi /root/.qwen/settings.json
+```
+
+推荐直接按上游 `settings.json` 方式配置模型。模板里已经保留了 `env.LLM_API_KEY` 示例占位，可直接改成现场值。
+
+然后启动：
 
 ```bash
 qwen
 ```
-
-如果传入了 `LLM_API_BASE`、`LLM_API_KEY`、`LLM_MODEL`，容器会自动生成对应的 `/root/.qwen/settings.json`。
 
 ## 3. 无界面模式
 
@@ -66,12 +70,8 @@ uv --version
 ## 7. Compose 方式
 
 ```bash
-export DASHSCOPE_API_KEY=你的百炼Key
 export WORKSPACE_HOST_DIR=/your/project
 export QWEN_HOME_DIR=/your/qwen-home
-export LLM_API_BASE=https://your-openai-compatible-endpoint/v1
-export LLM_API_KEY=你的Key
-export LLM_MODEL=你的模型名
 docker compose up -d
 docker exec -it qwen-code-dev bash
 ```

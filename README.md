@@ -41,16 +41,16 @@
 - 许可证与上游保持一致，采用 Apache-2.0
 - 保留对上游项目来源的明确说明
 
-容器的最终用户入口参数是通用 OpenAI 兼容接口变量，而不是固定供应商变量：
+容器默认不替用户生成 `~/.qwen/settings.json`，而是保持和上游一致：
 
-- `LLM_API_BASE`
-- `LLM_API_KEY`
-- `LLM_MODEL`
-- 可选：`LLM_PROVIDER_NAME`
+- 启动容器
+- 挂载外部 `/root/.qwen`
+- 进入容器后自行维护 `settings.json`
+- 再启动 `qwen`
 
 ## 在线分发
 
-本项目已接入 GHCR 发布流程。版本发布后，最终用户可以直接拉取镜像，而不必先下载离线包。
+本项目已接入 GHCR 发布流程。但现场默认仍建议使用离线包，不假设客户环境可以联网下载。
 
 示例：
 
@@ -68,7 +68,7 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.2
 
 - 在容器内直接运行 `qwen`
 - 支持挂载外部开发目录到 `/workspace`
-- 支持通过任意 OpenAI 兼容接口接入模型
+- 支持通过标准 `settings.json` 对接任意 OpenAI 兼容接口
 - 预装常用 Python 研发组件、数据库客户端、Kafka 组件和 `fastmcp`
 - 提供可复用的构建脚本、部署手册、使用手册和组件清单
 
@@ -78,9 +78,8 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.2
 
 - `qwen` CLI 本体来自上游官方 npm 包
 - 运行入口仍然遵循上游的 `settings.json` 模型配置机制
-- 本仓库新增的只是容器入口变量到 `settings.json` 的转换层
 - 不修改上游协议栈，不替换上游 CLI 的核心行为
-- 最终用户如需回到原生上游方式，仍可直接使用标准 `settings.json`
+- 最终用户直接维护标准 `settings.json` 即可
 
 ## 当前版本
 
@@ -115,19 +114,18 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.2
 最短路径如下：
 
 ```bash
-docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.2
+docker load -i qwen-code-dev-0.13.2.tar.gz
 docker run -it --rm \
-  -e LLM_API_BASE=https://your-openai-compatible-endpoint/v1 \
-  -e LLM_API_KEY=你的Key \
-  -e LLM_MODEL=你的模型名 \
   -v /data/project:/workspace \
   -v /data/qwen-home:/root/.qwen \
-  ghcr.io/wzfukui/qwen-code-dev-container:0.13.2
+  qwen-code-dev:0.13.2
 ```
 
 容器内执行：
 
 ```bash
+cp /opt/qwen-dev/qwen-settings.template.json /root/.qwen/settings.json
+# 编辑 /root/.qwen/settings.json
 qwen
 ```
 
@@ -157,3 +155,15 @@ qwen
 如果首次推送后包默认不是公开可见，需要在 GitHub 的 Package 页面手工调整为 `public`。
 
 仓库里的 DashScope 相关配置仅用于构建后的标准化验证，不代表最终用户必须使用 DashScope。
+
+## 使用口径调整
+
+现场默认按以下方式使用：
+
+- 通过离线介质拷贝镜像包到客户环境
+- `docker load` 导入本地镜像
+- 启动容器时只挂载工作目录和 `/root/.qwen`
+- 进入容器后手工编辑 `/root/.qwen/settings.json`
+- 再启动 `qwen`
+
+这样更符合上游原生用法，也避免启动参数和配置文件彼此覆盖。
