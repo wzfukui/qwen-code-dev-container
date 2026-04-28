@@ -20,6 +20,25 @@
 - 让交付过程从“现场拼环境”变成“直接拉镜像或导入离线包”
 - 让 Qwen Code 在内网、离线、受限网络和标准研发环境里都能以更低成本落地
 
+## 快速部署
+
+现场优先用离线包，并尽量减少人工操作：
+
+```bash
+docker load -i qwen-code-dev-0.13.4.tar.gz
+IMAGE_TAG=qwen-code-dev:0.13.4 \
+WORKSPACE_HOST_DIR=/data/project \
+QWEN_HOME_DIR=/data/qwen-home \
+bash scripts/qwen-init-host.sh
+```
+
+进入容器后可以不用编辑器，直接一条命令生成配置：
+
+```bash
+qwen-config https://your-openai-compatible-endpoint/v1 你的Key your-model-name
+qwen
+```
+
 ## 上游项目
 
 本项目以上游官方仓库为基准：
@@ -61,7 +80,7 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:latest
 或拉取固定版本：
 
 ```bash
-docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.3
+docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.4
 ```
 
 ## 项目目标
@@ -70,6 +89,7 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.3
 - 支持挂载外部开发目录到 `/workspace`
 - 支持通过标准 `settings.json` 对接任意 OpenAI 兼容接口
 - 预装常用 Python 研发组件、数据库客户端、Kafka 组件和 `fastmcp`
+- 预装现场排障工具：`nano`、`curl`、`wget`、`telnet`、`nc`、`ssh`、`ping`、`dig`
 - 提供可复用的构建脚本、部署手册、使用手册和组件清单
 
 ## 一致化原则
@@ -83,7 +103,7 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.3
 
 ## 当前版本
 
-- 项目交付版本：`0.13.3`
+- 项目交付版本：`0.13.4`
 - `qwen-code`: `0.13.0`
 - `Python`: `3.13`
 - `Node.js`: `24`
@@ -106,6 +126,10 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.3
   Python 组件清单
 - [RELEASE.md](./RELEASE.md)
   GitHub Release 发布方式和综合包建议
+- `scripts/qwen-init-host.sh`
+  宿主机一键初始化并启动容器
+- `scripts/qwen-config.sh`
+  容器内一键生成 `settings.json`
 
 ## 一线用户入口
 
@@ -114,20 +138,22 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.3
 最短路径如下：
 
 ```bash
-docker load -i qwen-code-dev-0.13.3.tar.gz
-docker run -it --rm \
+docker load -i qwen-code-dev-0.13.4.tar.gz
+docker run -it --name qwen-dev \
+  --restart unless-stopped \
   -v /data/project:/workspace \
   -v /data/qwen-home:/root/.qwen \
-  qwen-code-dev:0.13.3
+  qwen-code-dev:0.13.4
 ```
 
 容器内执行：
 
 ```bash
-cp /opt/qwen-dev/qwen-settings.template.json /root/.qwen/settings.json
-# 编辑 /root/.qwen/settings.json
+qwen-config https://your-openai-compatible-endpoint/v1 你的Key your-model-name
 qwen
 ```
+
+更推荐的现场做法是：直接在宿主机维护 `/data/qwen-home/settings.json`，容器里会映射为 `/root/.qwen/settings.json`，无需在容器内编辑。
 
 ## 开发者入口
 
@@ -148,7 +174,7 @@ qwen
 - 打 `v*` 标签时自动构建并推送到 `ghcr.io/wzfukui/qwen-code-dev-container`
 - 默认输出标签：
   - `latest`
-  - `0.13.3`
+  - `0.13.4`
   - `0.13`
 - GitHub Actions 已显式启用 Node 24 运行模式，提前规避 Node 20 弃用影响
 

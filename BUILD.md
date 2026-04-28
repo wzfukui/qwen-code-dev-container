@@ -11,6 +11,8 @@
 - `scripts/build-image.sh`: 镜像构建脚本
 - `scripts/save-image.sh`: 镜像导出脚本
 - `scripts/model-smoke-test.sh`: 模型冒烟验证脚本
+- `scripts/qwen-init-host.sh`: 宿主机一键启动脚本
+- `scripts/qwen-config.sh`: 容器内一键写配置脚本
 
 ## 2. 构建前提
 
@@ -36,20 +38,20 @@ cd qwen-code-dev-container
 默认生成镜像：
 
 ```bash
-qwen-code-dev:0.13.3
+qwen-code-dev:0.13.4
 ```
 
 ## 4. 导出镜像包
 
 ```bash
 cd qwen-code-dev-container
-./scripts/save-image.sh qwen-code-dev:0.13.3 ./image/qwen-code-dev-0.13.3.tar.gz
+./scripts/save-image.sh qwen-code-dev:0.13.4 ./image/qwen-code-dev-0.13.4.tar.gz
 ```
 
 输出文件：
 
 ```bash
-./image/qwen-code-dev-0.13.3.tar.gz
+./image/qwen-code-dev-0.13.4.tar.gz
 ```
 
 ## 5. 构建后验证
@@ -57,16 +59,16 @@ cd qwen-code-dev-container
 基础版本检查：
 
 ```bash
-docker run --rm qwen-code-dev:0.13.3 python --version
-docker run --rm qwen-code-dev:0.13.3 node --version
-docker run --rm qwen-code-dev:0.13.3 qwen --version
+docker run --rm qwen-code-dev:0.13.4 python --version
+docker run --rm qwen-code-dev:0.13.4 node --version
+docker run --rm qwen-code-dev:0.13.4 qwen --version
 ```
 
 模型冒烟验证：
 
 ```bash
 export DASHSCOPE_API_KEY=你的百炼Key
-./scripts/model-smoke-test.sh qwen-code-dev:0.13.3 /tmp
+./scripts/model-smoke-test.sh qwen-code-dev:0.13.4 /tmp
 ```
 
 已验证模型：
@@ -80,12 +82,13 @@ export DASHSCOPE_API_KEY=你的百炼Key
 - 这里使用 DashScope 只是为了做构建后的标准化回归验证
 - 最终交付给用户时，推荐直接维护 `settings.json`
 - 现场使用时不再推荐在 `docker run` 阶段通过环境变量自动写入模型配置
+- 现场可直接使用 `qwen-config` 写入配置，减少人工编辑器依赖
 
 ## 6. 交付建议
 
 建议将以下内容作为交付产物保留：
 
-- 镜像包 `qwen-code-dev-0.13.3.tar.gz`
+- 镜像包 `qwen-code-dev-0.13.4.tar.gz`
 - [FIELD_USAGE.md](./FIELD_USAGE.md)
 - [PYTHON_COMPONENTS.md](./PYTHON_COMPONENTS.md)
 - 可选的样例 `.env` 或现场启动脚本

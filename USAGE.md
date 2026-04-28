@@ -4,11 +4,23 @@
 
 ## 1. 进入开发容器
 
+推荐一键方式：
+
 ```bash
-docker run -it --rm \
+IMAGE_TAG=qwen-code-dev:0.13.4 \
+WORKSPACE_HOST_DIR=/your/project \
+QWEN_HOME_DIR=/your/qwen-home \
+bash scripts/qwen-init-host.sh
+```
+
+等价手动命令：
+
+```bash
+docker run -it --name qwen-dev \
+  --restart unless-stopped \
   -v /your/project:/workspace \
   -v /your/qwen-home:/root/.qwen \
-  qwen-code-dev:0.13.3
+  qwen-code-dev:0.13.4
 ```
 
 进入后默认位于 `/workspace`。
@@ -16,11 +28,14 @@ docker run -it --rm \
 ## 2. 容器内配置
 
 ```bash
-cp /opt/qwen-dev/qwen-settings.template.json /root/.qwen/settings.json
-vi /root/.qwen/settings.json
+qwen-config https://your-openai-compatible-endpoint/v1 你的Key your-model-name
 ```
 
-推荐直接按上游 `settings.json` 方式配置模型。模板里已经保留了 `env.LLM_API_KEY` 示例占位，可直接改成现场值。
+如需手工编辑：
+
+```bash
+nano /root/.qwen/settings.json
+```
 
 然后启动：
 

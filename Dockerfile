@@ -20,18 +20,28 @@ RUN apt-get update \
         ca-certificates \
         curl \
         default-mysql-client \
+        dnsutils \
         git \
+        inetutils-telnet \
         jq \
         kcat \
         less \
+        lsof \
+        nano \
+        netcat-openbsd \
         openssh-client \
         postgresql-client \
         procps \
         psmisc \
+        iputils-ping \
         ripgrep \
         rsync \
+        tmux \
         tini \
+        tree \
         unzip \
+        vim-tiny \
+        wget \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -49,8 +59,10 @@ RUN mkdir -p /opt/qwen-dev /root/.qwen "${WORKSPACE}"
 COPY qwen-settings.template.json /opt/qwen-dev/qwen-settings.template.json
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY scripts/model-smoke-test.sh /opt/qwen-dev/model-smoke-test.sh
+COPY scripts/qwen-init-host.sh /opt/qwen-dev/qwen-init-host.sh
+COPY scripts/qwen-config.sh /usr/local/bin/qwen-config
 
-RUN chmod +x /usr/local/bin/entrypoint.sh /opt/qwen-dev/model-smoke-test.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh /opt/qwen-dev/model-smoke-test.sh /opt/qwen-dev/qwen-init-host.sh /usr/local/bin/qwen-config
 
 WORKDIR /workspace
 ENTRYPOINT ["/usr/bin/tini", "--", "/usr/local/bin/entrypoint.sh"]

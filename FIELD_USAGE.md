@@ -9,14 +9,14 @@
 标准方式就是：
 
 ```bash
-docker load -i qwen-code-dev-0.13.3.tar.gz
+docker load -i qwen-code-dev-0.13.4.tar.gz
 ```
 
 ## 1. 你会拿到什么
 
 现场建议交付以下文件：
 
-- `qwen-code-dev-0.13.3.tar.gz`
+- `qwen-code-dev-0.13.4.tar.gz`
 - `FIELD_USAGE.md`
 - `PYTHON_COMPONENTS.md`
 
@@ -30,13 +30,13 @@ docker load -i qwen-code-dev-0.13.3.tar.gz
 假设你已经拿到了镜像包：
 
 ```bash
-ls -lh qwen-code-dev-0.13.3.tar.gz
+ls -lh qwen-code-dev-0.13.4.tar.gz
 ```
 
 导入 Docker：
 
 ```bash
-docker load -i qwen-code-dev-0.13.3.tar.gz
+docker load -i qwen-code-dev-0.13.4.tar.gz
 ```
 
 确认镜像存在：
@@ -61,13 +61,23 @@ mkdir -p /data/qwen-home
 
 ## 4. 启动容器
 
-推荐直接启动一个开发容器，不在 `docker run` 阶段传模型参数：
+推荐用一键脚本启动，最大限度减少现场操作：
 
 ```bash
-docker run -it --rm \
+IMAGE_TAG=qwen-code-dev:0.13.4 \
+WORKSPACE_HOST_DIR=/data/project \
+QWEN_HOME_DIR=/data/qwen-home \
+bash scripts/qwen-init-host.sh
+```
+
+如果你不用脚本，等价命令如下：
+
+```bash
+docker run -it --name qwen-dev \
+  --restart unless-stopped \
   -v /data/project:/workspace \
   -v /data/qwen-home:/root/.qwen \
-  qwen-code-dev:0.13.3
+  qwen-code-dev:0.13.4
 ```
 
 进入后默认目录是：
@@ -80,41 +90,16 @@ docker run -it --rm \
 
 ## 5. 容器内配置和启动 Qwen Code
 
-第一次进入容器时，先复制模板：
+第一次进入容器时，可直接用命令写配置（不依赖 `vi/nano`）：
 
 ```bash
-cp /opt/qwen-dev/qwen-settings.template.json /root/.qwen/settings.json
+qwen-config https://your-openai-compatible-endpoint/v1 你的Key your-model-name
 ```
 
-然后编辑 `/root/.qwen/settings.json`。
+如需手工编辑，再执行：
 
-推荐直接把地址、模型和密钥都写进文件。一个最小示例：
-
-```json
-{
-  "modelProviders": {
-    "openai": [
-      {
-        "id": "your-model-name",
-        "name": "现场模型",
-        "baseUrl": "https://your-openai-compatible-endpoint/v1",
-        "description": "OpenAI-compatible endpoint",
-        "envKey": "LLM_API_KEY"
-      }
-    ]
-  },
-  "env": {
-    "LLM_API_KEY": "你的Key"
-  },
-  "security": {
-    "auth": {
-      "selectedType": "openai"
-    }
-  },
-  "model": {
-    "name": "your-model-name"
-  }
-}
+```bash
+nano /root/.qwen/settings.json
 ```
 
 保存后再启动：
@@ -130,6 +115,14 @@ qwen
 ```bash
 qwen -p "Explain this repository structure."
 ```
+
+更稳妥的现场操作是直接在宿主机编辑：
+
+```bash
+nano /data/qwen-home/settings.json
+```
+
+该文件会自动映射到容器内 `/root/.qwen/settings.json`。
 
 ## 6. 切换模型
 
@@ -162,10 +155,9 @@ qwen --version
 
 如果你只关心“怎么用”，最短步骤就是：
 
-1. 将 `qwen-code-dev-0.13.3.tar.gz` 拷贝到现场机器
+1. 将 `qwen-code-dev-0.13.4.tar.gz` 拷贝到现场机器
 2. `mkdir -p /data/project /data/qwen-home`
-3. `docker load -i qwen-code-dev-0.13.3.tar.gz`
-4. `docker run -it --rm -v /data/project:/workspace -v /data/qwen-home:/root/.qwen qwen-code-dev:0.13.3`
-5. 容器里执行 `cp /opt/qwen-dev/qwen-settings.template.json /root/.qwen/settings.json`
-6. 编辑 `/root/.qwen/settings.json`
-7. 执行 `qwen`
+3. `docker load -i qwen-code-dev-0.13.4.tar.gz`
+4. `IMAGE_TAG=qwen-code-dev:0.13.4 WORKSPACE_HOST_DIR=/data/project QWEN_HOME_DIR=/data/qwen-home bash scripts/qwen-init-host.sh`
+5. 容器里执行 `qwen-config https://your-openai-compatible-endpoint/v1 你的Key your-model-name`
+6. 执行 `qwen`
