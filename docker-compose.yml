@@ -10,6 +10,7 @@ services:
       HTTP_PROXY: ${HTTP_PROXY:-}
       HTTPS_PROXY: ${HTTPS_PROXY:-}
       NO_PROXY: ${NO_PROXY:-}
+      TZ: ${TZ:-Asia/Shanghai}
     volumes:
       - ${WORKSPACE_HOST_DIR:-/data/project}:/workspace
       - ${QWEN_HOME_DIR:-/data/qwen-home}:/root/.qwen

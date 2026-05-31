@@ -10,6 +10,7 @@ ARG NO_PROXY
 ENV DEBIAN_FRONTEND=noninteractive \
     PYTHONUNBUFFERED=1 \
     PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    TZ=Asia/Shanghai \
     WORKSPACE=/workspace
 
 COPY --from=node_runtime /usr/local/ /usr/local/
@@ -42,6 +43,7 @@ RUN apt-get update \
         rsync \
         tmux \
         tini \
+        tzdata \
         traceroute \
         tree \
         unzip \

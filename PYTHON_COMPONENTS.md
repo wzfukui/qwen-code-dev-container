@@ -34,6 +34,11 @@
 | `faker` | 测试数据生成 |
 | `confluent-kafka` | Kafka 高性能客户端 |
 | `kafka-python` | Kafka 纯 Python 客户端 |
+| `aiokafka` | Kafka 异步客户端 |
+| `python-dateutil` | 日期解析、相对时间和时区辅助 |
+| `pytz` | 传统时区库，兼容老项目 |
+| `pendulum` | 更易用的时区和时间计算库 |
+| `tzdata` | Python 时区数据库 |
 | `flask` | Flask Web 框架 |
 | `flask-cors` | Flask 跨域支持 |
 | `flask-sqlalchemy` | Flask + SQLAlchemy 集成 |
@@ -88,4 +93,5 @@
 | `rsync` | 目录同步 |
 | `tmux` | 会话保持 |
 | `tini` | 容器 init 进程 |
+| `tzdata` | 系统时区数据库，默认 `TZ=Asia/Shanghai` |
 | `ca-certificates` | HTTPS 证书信任链 |

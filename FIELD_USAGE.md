@@ -71,6 +71,12 @@ QWEN_HOME_DIR=/data/qwen-home \
 docker compose up -d
 ```
 
+如需覆盖容器时区，可额外设置 `TZ`：
+
+```bash
+TZ=UTC docker compose up -d
+```
+
 进入容器：
 
 ```bash

@@ -87,8 +87,9 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.17.1
 - 在容器内直接运行 `qwen`
 - 支持挂载外部开发目录到 `/workspace`
 - 支持通过标准 `settings.json` 对接任意 OpenAI 兼容接口
-- 预装常用 Python 研发组件、数据库客户端、Kafka 组件、OpenAI/Anthropic SDK、`fastmcp` 和官方 `mcp` SDK
+- 预装常用 Python 研发组件、数据库客户端、Kafka 同步/异步客户端、OpenAI/Anthropic SDK、`fastmcp` 和官方 `mcp` SDK
 - 预装现场排障工具：`nano`、`vi`、`vim.tiny`、`curl`、`wget`、`telnet`、`nc`、`ssh`、`ping`、`dig`、`ip`、`ss`、`traceroute`、`redis-cli`、`whois`
+- 预装时区和时间计算组件，容器默认 `TZ=Asia/Shanghai`，可通过环境变量覆盖
 - 提供可复用的构建脚本、部署手册、使用手册和组件清单
 
 ## 一致化原则
