@@ -25,8 +25,8 @@
 现场优先用离线包，并尽量减少人工操作：
 
 ```bash
-docker load -i qwen-code-dev-0.13.4.tar.gz
-IMAGE_TAG=qwen-code-dev:0.13.4 \
+docker load -i qwen-code-dev-0.17.0.tar.gz
+IMAGE_TAG=qwen-code-dev:0.17.0 \
 WORKSPACE_HOST_DIR=/data/project \
 QWEN_HOME_DIR=/data/qwen-home \
 bash scripts/qwen-init-host.sh
@@ -35,7 +35,7 @@ bash scripts/qwen-init-host.sh
 进入容器后可以不用编辑器，直接一条命令生成配置：
 
 ```bash
-qwen-config https://your-openai-compatible-endpoint/v1 你的Key your-model-name
+qwen-config https://api.deepseek.com 你的Key deepseek-v4-flash
 qwen
 ```
 
@@ -80,7 +80,7 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:latest
 或拉取固定版本：
 
 ```bash
-docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.4
+docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.17.0
 ```
 
 ## 项目目标
@@ -103,8 +103,8 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.4
 
 ## 当前版本
 
-- 项目交付版本：`0.13.4`
-- `qwen-code`: `0.13.0`
+- 项目交付版本：`0.17.0`
+- `qwen-code`: `0.17.0`
 - `Python`: `3.13`
 - `Node.js`: `24`
 
@@ -112,9 +112,8 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.4
 
 以下模型已经通过容器内 `qwen -p` 冒烟验证：
 
-- `qwen3-30b-a3b-instruct-2507`
-- `deepseek-v3`
-- `qwen3.5-35b-a3b`
+- `deepseek-v4-flash`
+- `deepseek-v4-pro`
 
 ## 文档分工
 
@@ -138,18 +137,18 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.13.4
 最短路径如下：
 
 ```bash
-docker load -i qwen-code-dev-0.13.4.tar.gz
+docker load -i qwen-code-dev-0.17.0.tar.gz
 docker run -it --name qwen-dev \
   --restart unless-stopped \
   -v /data/project:/workspace \
   -v /data/qwen-home:/root/.qwen \
-  qwen-code-dev:0.13.4
+  qwen-code-dev:0.17.0
 ```
 
 容器内执行：
 
 ```bash
-qwen-config https://your-openai-compatible-endpoint/v1 你的Key your-model-name
+qwen-config https://api.deepseek.com 你的Key deepseek-v4-flash
 qwen
 ```
 
@@ -174,8 +173,8 @@ qwen
 - 打 `v*` 标签时自动构建并推送到 `ghcr.io/wzfukui/qwen-code-dev-container`
 - 默认输出标签：
   - `latest`
-  - `0.13.4`
-  - `0.13`
+  - `0.17.0`
+  - `0.17`
 - GitHub Actions 已显式启用 Node 24 运行模式，提前规避 Node 20 弃用影响
 
 如果首次推送后包默认不是公开可见，需要在 GitHub 的 Package 页面手工调整为 `public`。

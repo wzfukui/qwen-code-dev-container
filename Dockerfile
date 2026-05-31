@@ -2,7 +2,7 @@ FROM docker.m.daocloud.io/library/node:24-bookworm-slim AS node_runtime
 
 FROM python:3.13-slim-bookworm
 
-ARG QWEN_CODE_VERSION=0.13.0
+ARG QWEN_CODE_VERSION=0.17.0
 ARG HTTP_PROXY
 ARG HTTPS_PROXY
 ARG NO_PROXY

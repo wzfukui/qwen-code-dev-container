@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-IMAGE_TAG="${1:-qwen-code-dev:0.13.4}"
-OUTPUT_PATH="${2:-./image/qwen-code-dev-0.13.4.tar.gz}"
+IMAGE_TAG="${1:-qwen-code-dev:0.17.0}"
+OUTPUT_PATH="${2:-./image/qwen-code-dev-0.17.0.tar.gz}"
 
 mkdir -p "$(dirname "${OUTPUT_PATH}")"
 docker save "${IMAGE_TAG}" | gzip > "${OUTPUT_PATH}"

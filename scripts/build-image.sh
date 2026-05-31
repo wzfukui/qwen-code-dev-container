@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-IMAGE_TAG="${IMAGE_TAG:-qwen-code-dev:0.13.4}"
+IMAGE_TAG="${IMAGE_TAG:-qwen-code-dev:0.17.0}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(cd "${SCRIPT_DIR}/.." && pwd)"
 

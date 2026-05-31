@@ -9,14 +9,14 @@
 标准方式就是：
 
 ```bash
-docker load -i qwen-code-dev-0.13.4.tar.gz
+docker load -i qwen-code-dev-0.17.0.tar.gz
 ```
 
 ## 1. 你会拿到什么
 
 现场建议交付以下文件：
 
-- `qwen-code-dev-0.13.4.tar.gz`
+- `qwen-code-dev-0.17.0.tar.gz`
 - `FIELD_USAGE.md`
 - `PYTHON_COMPONENTS.md`
 
@@ -30,13 +30,13 @@ docker load -i qwen-code-dev-0.13.4.tar.gz
 假设你已经拿到了镜像包：
 
 ```bash
-ls -lh qwen-code-dev-0.13.4.tar.gz
+ls -lh qwen-code-dev-0.17.0.tar.gz
 ```
 
 导入 Docker：
 
 ```bash
-docker load -i qwen-code-dev-0.13.4.tar.gz
+docker load -i qwen-code-dev-0.17.0.tar.gz
 ```
 
 确认镜像存在：
@@ -64,7 +64,7 @@ mkdir -p /data/qwen-home
 推荐用一键脚本启动，最大限度减少现场操作：
 
 ```bash
-IMAGE_TAG=qwen-code-dev:0.13.4 \
+IMAGE_TAG=qwen-code-dev:0.17.0 \
 WORKSPACE_HOST_DIR=/data/project \
 QWEN_HOME_DIR=/data/qwen-home \
 bash scripts/qwen-init-host.sh
@@ -77,7 +77,7 @@ docker run -it --name qwen-dev \
   --restart unless-stopped \
   -v /data/project:/workspace \
   -v /data/qwen-home:/root/.qwen \
-  qwen-code-dev:0.13.4
+  qwen-code-dev:0.17.0
 ```
 
 进入后默认目录是：
@@ -93,7 +93,13 @@ docker run -it --name qwen-dev \
 第一次进入容器时，可直接用命令写配置（不依赖 `vi/nano`）：
 
 ```bash
-qwen-config https://your-openai-compatible-endpoint/v1 你的Key your-model-name
+qwen-config https://api.deepseek.com 你的Key deepseek-v4-flash
+```
+
+如果现场网关走 Anthropic 兼容入口：
+
+```bash
+qwen-config --auth-type anthropic https://api.deepseek.com/anthropic 你的Key deepseek-v4-pro
 ```
 
 如需手工编辑，再执行：
@@ -155,9 +161,9 @@ qwen --version
 
 如果你只关心“怎么用”，最短步骤就是：
 
-1. 将 `qwen-code-dev-0.13.4.tar.gz` 拷贝到现场机器
+1. 将 `qwen-code-dev-0.17.0.tar.gz` 拷贝到现场机器
 2. `mkdir -p /data/project /data/qwen-home`
-3. `docker load -i qwen-code-dev-0.13.4.tar.gz`
-4. `IMAGE_TAG=qwen-code-dev:0.13.4 WORKSPACE_HOST_DIR=/data/project QWEN_HOME_DIR=/data/qwen-home bash scripts/qwen-init-host.sh`
-5. 容器里执行 `qwen-config https://your-openai-compatible-endpoint/v1 你的Key your-model-name`
+3. `docker load -i qwen-code-dev-0.17.0.tar.gz`
+4. `IMAGE_TAG=qwen-code-dev:0.17.0 WORKSPACE_HOST_DIR=/data/project QWEN_HOME_DIR=/data/qwen-home bash scripts/qwen-init-host.sh`
+5. 容器里执行 `qwen-config https://api.deepseek.com 你的Key deepseek-v4-flash`
 6. 执行 `qwen`

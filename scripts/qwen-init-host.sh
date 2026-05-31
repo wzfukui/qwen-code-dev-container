@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-IMAGE_TAG="${IMAGE_TAG:-qwen-code-dev:0.13.4}"
+IMAGE_TAG="${IMAGE_TAG:-qwen-code-dev:0.17.0}"
 CONTAINER_NAME="${CONTAINER_NAME:-qwen-dev}"
 WORKSPACE_HOST_DIR="${WORKSPACE_HOST_DIR:-/data/project}"
 QWEN_HOME_DIR="${QWEN_HOME_DIR:-/data/qwen-home}"

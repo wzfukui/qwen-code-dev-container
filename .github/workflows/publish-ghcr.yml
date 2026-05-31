@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       release_tag:
-        description: "Release tag, for example v0.13.1"
+        description: "Release tag, for example v0.17.1"
         required: true
         type: string
 
@@ -99,12 +99,11 @@ jobs:
           \`\`\`bash
           docker load -i qwen-code-dev-${VERSION_STRIPPED}.tar.gz
           docker run -it --rm \\
-            -e LLM_API_BASE=https://your-openai-compatible-endpoint/v1 \\
-            -e LLM_API_KEY=你的Key \\
-            -e LLM_MODEL=你的模型名 \\
             -v /data/project:/workspace \\
             -v /data/qwen-home:/root/.qwen \\
             qwen-code-dev:${VERSION_STRIPPED}
+          qwen-config https://api.deepseek.com 你的Key deepseek-v4-flash
+          qwen
           \`\`\`
 
           ## 附件
