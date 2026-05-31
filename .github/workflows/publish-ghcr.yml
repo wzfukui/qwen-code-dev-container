@@ -74,6 +74,7 @@ jobs:
           docker save "${IMAGE_NAME}:${VERSION_STRIPPED}" "${LOCAL_IMAGE_NAME}:${VERSION_STRIPPED}" | gzip > "release/qwen-code-dev-${VERSION_STRIPPED}.tar.gz"
           cp FIELD_USAGE.md release/
           cp PYTHON_COMPONENTS.md release/
+          cp docker-compose.yml release/
           cp qwen-settings.template.json release/
           (cd release && sha256sum "qwen-code-dev-${VERSION_STRIPPED}.tar.gz" > checksums.txt)
 
@@ -86,7 +87,7 @@ jobs:
 
           - 推送 GHCR 在线镜像
           - 生成离线导入包 \`qwen-code-dev-${VERSION_STRIPPED}.tar.gz\`
-          - 自动附加现场使用文档、Python 组件清单和配置模板到 GitHub Release
+          - 自动附加现场使用文档、Python 组件清单、Docker Compose 文件和配置模板到 GitHub Release
 
           ## 在线使用
 
@@ -98,11 +99,13 @@ jobs:
 
           \`\`\`bash
           docker load -i qwen-code-dev-${VERSION_STRIPPED}.tar.gz
-          docker run -it --name qwen-dev \\
-            --restart unless-stopped \\
-            -v /data/project:/workspace \\
-            -v /data/qwen-home:/root/.qwen \\
-            qwen-code-dev:${VERSION_STRIPPED}
+          mkdir -p /data/project /data/qwen-home
+          IMAGE_TAG=qwen-code-dev:${VERSION_STRIPPED} \\
+          WORKSPACE_HOST_DIR=/data/project \\
+          QWEN_HOME_DIR=/data/qwen-home \\
+          docker compose up -d
+
+          docker compose exec qwen-code-dev bash
 
           # 容器内执行
           qwen-config https://api.deepseek.com 你的Key deepseek-v4-flash
@@ -114,6 +117,7 @@ jobs:
           - \`qwen-code-dev-${VERSION_STRIPPED}.tar.gz\`
           - \`FIELD_USAGE.md\`
           - \`PYTHON_COMPONENTS.md\`
+          - \`docker-compose.yml\`
           - \`qwen-settings.template.json\`
           - \`checksums.txt\`
           EOF
@@ -131,6 +135,7 @@ jobs:
             "release/qwen-code-dev-${VERSION_STRIPPED}.tar.gz" \
             "release/FIELD_USAGE.md" \
             "release/PYTHON_COMPONENTS.md" \
+            "release/docker-compose.yml" \
             "release/qwen-settings.template.json" \
             "release/checksums.txt" \
             --clobber

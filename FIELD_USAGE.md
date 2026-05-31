@@ -23,6 +23,7 @@ docker load -i qwen-code-dev-0.17.0.tar.gz
 如果交付方在有网环境预先准备好了 GitHub Release，也可以额外附带：
 
 - `qwen-settings.template.json`
+- `docker-compose.yml`
 - 启动脚本
 
 ## 2. 导入镜像
@@ -61,16 +62,30 @@ mkdir -p /data/qwen-home
 
 ## 4. 启动容器
 
-推荐用一键脚本启动，最大限度减少现场操作：
+推荐用 Docker Compose 启动，后续 `start`、`stop`、`logs`、`exec` 管理更清晰：
 
 ```bash
 IMAGE_TAG=qwen-code-dev:0.17.0 \
 WORKSPACE_HOST_DIR=/data/project \
 QWEN_HOME_DIR=/data/qwen-home \
-bash scripts/qwen-init-host.sh
+docker compose up -d
 ```
 
-如果你不用脚本，等价命令如下：
+进入容器：
+
+```bash
+docker compose exec qwen-code-dev bash
+```
+
+常用管理命令：
+
+```bash
+docker compose stop
+docker compose start
+docker compose logs -f
+```
+
+如果现场没有 Docker Compose，也可以直接用 `docker run`：
 
 ```bash
 docker run -it --name qwen-dev \
@@ -180,6 +195,7 @@ vi --version
 1. 将 `qwen-code-dev-0.17.0.tar.gz` 拷贝到现场机器
 2. `mkdir -p /data/project /data/qwen-home`
 3. `docker load -i qwen-code-dev-0.17.0.tar.gz`
-4. `IMAGE_TAG=qwen-code-dev:0.17.0 WORKSPACE_HOST_DIR=/data/project QWEN_HOME_DIR=/data/qwen-home bash scripts/qwen-init-host.sh`
-5. 容器里执行 `qwen-config https://api.deepseek.com 你的Key deepseek-v4-flash`
-6. 执行 `qwen`
+4. `IMAGE_TAG=qwen-code-dev:0.17.0 WORKSPACE_HOST_DIR=/data/project QWEN_HOME_DIR=/data/qwen-home docker compose up -d`
+5. `docker compose exec qwen-code-dev bash`
+6. 容器里执行 `qwen-config https://api.deepseek.com 你的Key deepseek-v4-flash`
+7. 执行 `qwen`

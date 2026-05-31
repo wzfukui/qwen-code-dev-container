@@ -5,7 +5,7 @@
 ## 1. 目录产物
 
 - `Dockerfile`: 容器构建定义
-- `docker-compose.yml`: 本地或开发机启动示例
+- `docker-compose.yml`: 现场长期管理和本地开发启动示例
 - `requirements.txt`: Python 组件清单
 - `qwen-settings.template.json`: 默认 Qwen 配置模板示例
 - `scripts/build-image.sh`: 镜像构建脚本

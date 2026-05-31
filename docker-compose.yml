@@ -1,7 +1,8 @@
 services:
   qwen-code-dev:
-    image: qwen-code-dev:0.17.0
-    container_name: qwen-code-dev
+    image: ${IMAGE_TAG:-qwen-code-dev:0.17.0}
+    container_name: ${CONTAINER_NAME:-qwen-dev}
+    restart: unless-stopped
     stdin_open: true
     tty: true
     working_dir: /workspace
@@ -10,5 +11,5 @@ services:
       HTTPS_PROXY: ${HTTPS_PROXY:-}
       NO_PROXY: ${NO_PROXY:-}
     volumes:
-      - ${WORKSPACE_HOST_DIR:-.}:/workspace
-      - ${QWEN_HOME_DIR:-./.qwen-home}:/root/.qwen
+      - ${WORKSPACE_HOST_DIR:-/data/project}:/workspace
+      - ${QWEN_HOME_DIR:-/data/qwen-home}:/root/.qwen

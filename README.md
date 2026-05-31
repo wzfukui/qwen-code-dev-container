@@ -26,10 +26,9 @@
 
 ```bash
 docker load -i qwen-code-dev-0.17.0.tar.gz
-IMAGE_TAG=qwen-code-dev:0.17.0 \
-WORKSPACE_HOST_DIR=/data/project \
-QWEN_HOME_DIR=/data/qwen-home \
-bash scripts/qwen-init-host.sh
+mkdir -p /data/project /data/qwen-home
+IMAGE_TAG=qwen-code-dev:0.17.0 docker compose up -d
+docker compose exec qwen-code-dev bash
 ```
 
 进入容器后可以不用编辑器，直接一条命令生成配置：
@@ -125,6 +124,8 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.17.0
   Python 组件清单
 - [RELEASE.md](./RELEASE.md)
   GitHub Release 发布方式和综合包建议
+- `docker-compose.yml`
+  推荐的现场长期管理启动方式
 - `scripts/qwen-init-host.sh`
   宿主机一键初始化并启动容器
 - `scripts/qwen-config.sh`
@@ -138,11 +139,9 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.17.0
 
 ```bash
 docker load -i qwen-code-dev-0.17.0.tar.gz
-docker run -it --name qwen-dev \
-  --restart unless-stopped \
-  -v /data/project:/workspace \
-  -v /data/qwen-home:/root/.qwen \
-  qwen-code-dev:0.17.0
+mkdir -p /data/project /data/qwen-home
+IMAGE_TAG=qwen-code-dev:0.17.0 docker compose up -d
+docker compose exec qwen-code-dev bash
 ```
 
 容器内执行：
@@ -153,6 +152,15 @@ qwen
 ```
 
 正式现场容器不建议加 `--rm`，这样容器退出后仍可用 `docker start -ai qwen-dev` 回到同一个容器。只要代码目录和 Qwen 配置目录已挂载，即使容器重建，`/data/project` 和 `/data/qwen-home` 里的数据也会保留。
+
+如果使用 `docker compose` 管理，常用命令如下：
+
+```bash
+docker compose exec qwen-code-dev bash
+docker compose stop
+docker compose start
+docker compose logs -f
+```
 
 更推荐的现场做法是：直接在宿主机维护 `/data/qwen-home/settings.json`，容器里会映射为 `/root/.qwen/settings.json`。如果必须在容器内编辑，也可以使用预装的 `nano` 或 `vi`。
 
@@ -189,7 +197,7 @@ qwen
 
 - 通过离线介质拷贝镜像包到客户环境
 - `docker load` 导入本地镜像
-- 启动长期使用容器时使用 `--name qwen-dev --restart unless-stopped`，不使用 `--rm`
+- 启动长期使用容器时优先用 `docker compose up -d`，或手工使用 `--name qwen-dev --restart unless-stopped`，不使用 `--rm`
 - 启动容器时只挂载工作目录和 `/root/.qwen`
 - 进入容器后用 `qwen-config` 生成配置，或用 `nano` / `vi` 手工编辑 `/root/.qwen/settings.json`
 - 再启动 `qwen`

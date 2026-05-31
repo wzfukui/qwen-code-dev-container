@@ -25,6 +25,7 @@
 - 附件 `qwen-code-dev-0.17.0.tar.gz`
 - 附件 `FIELD_USAGE.md`
 - 附件 `PYTHON_COMPONENTS.md`
+- 附件 `docker-compose.yml`
 - 可选附件：
   - `qwen-settings.template.json`
   - `start.sh`
@@ -39,6 +40,7 @@ release/
   qwen-code-dev-0.17.0.tar.gz
   FIELD_USAGE.md
   PYTHON_COMPONENTS.md
+  docker-compose.yml
   qwen-settings.template.json
   checksums.txt
 ```
@@ -74,6 +76,7 @@ ghcr.io/wzfukui/qwen-code-dev-container:latest
   - `qwen-code-dev-0.17.0.tar.gz`
   - `FIELD_USAGE.md`
   - `PYTHON_COMPONENTS.md`
+  - `docker-compose.yml`
   - `qwen-settings.template.json`
   - `checksums.txt`
 
@@ -88,6 +91,7 @@ gh release create v0.17.0 \
   /path/to/release/qwen-code-dev-0.17.0.tar.gz \
   /path/to/release/FIELD_USAGE.md \
   /path/to/release/PYTHON_COMPONENTS.md \
+  /path/to/release/docker-compose.yml \
   /path/to/release/qwen-settings.template.json \
   /path/to/release/checksums.txt
 ```
