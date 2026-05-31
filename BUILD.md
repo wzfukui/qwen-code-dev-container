@@ -58,6 +58,8 @@ cd qwen-code-dev-container
 
 基础版本检查：
 
+以下 `--rm` 只用于一次性构建验证，不代表现场长期运行方式。
+
 ```bash
 docker run --rm qwen-code-dev:0.17.0 python --version
 docker run --rm qwen-code-dev:0.17.0 node --version

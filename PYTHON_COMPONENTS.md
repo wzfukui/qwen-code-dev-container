@@ -1,4 +1,4 @@
-# Python 组件清单
+# Python 组件和系统工具清单
 
 ## Python 版本
 
@@ -44,12 +44,20 @@
 
 | 组件 | 用途 |
 | --- | --- |
-| `nodejs` | 运行 `qwen-code` |
+| `bash` / `sh` | Shell 环境 |
+| `node` / `npm` | 运行和安装 `qwen-code` |
+| `qwen` | 上游 Qwen Code 官方 CLI |
+| `qwen-config` | 本容器提供的 `settings.json` 快速生成脚本 |
 | `git` | 代码仓库操作 |
 | `curl` / `wget` | HTTP 下载与调试 |
-| `ripgrep` | 快速检索 |
+| `nano` | 终端编辑器，适合现场快速改配置 |
+| `vi` / `vim.tiny` | 终端编辑器，Debian `vim-tiny` 提供 |
+| `less` | 分页查看文本 |
+| `ripgrep` (`rg`) | 快速检索 |
 | `tree` | 目录结构查看 |
 | `lsof` | 端口/进程排查 |
+| `procps` | `ps` 等进程工具 |
+| `psmisc` | `killall`、`pstree` 等进程工具 |
 | `jq` | JSON 处理 |
 | `kcat` | Kafka 命令行读写 |
 | `postgresql-client` | `psql` 客户端 |
@@ -61,4 +69,6 @@
 | `iputils-ping` | 网络连通性排查 |
 | `rsync` | 目录同步 |
 | `tmux` | 会话保持 |
-| `vim` / `nano` | 终端编辑 |
+| `tini` | 容器 init 进程 |
+| `unzip` | 解压 ZIP 文件 |
+| `ca-certificates` | HTTPS 证书信任链 |

@@ -80,6 +80,14 @@ docker run -it --name qwen-dev \
   qwen-code-dev:0.17.0
 ```
 
+正式现场使用不建议加 `--rm`。`--rm` 会在容器退出后自动删除容器实例，适合临时测试；长期使用时保留容器更方便，后续可执行：
+
+```bash
+docker start -ai qwen-dev
+```
+
+只要 `/data/project` 和 `/data/qwen-home` 已挂载，业务代码和 Qwen 配置会保存在宿主机目录中，不依赖容器实例本身。
+
 进入后默认目录是：
 
 ```bash
@@ -106,6 +114,12 @@ qwen-config --auth-type anthropic https://api.deepseek.com/anthropic 你的Key d
 
 ```bash
 nano /root/.qwen/settings.json
+```
+
+镜像内也带了 `vi`，可按现场习惯使用：
+
+```bash
+vi /root/.qwen/settings.json
 ```
 
 保存后再启动：
@@ -148,6 +162,8 @@ nano /data/qwen-home/settings.json
 python --version
 node --version
 qwen --version
+nano --version
+vi --version
 ```
 
 如果模型调用失败，优先检查：

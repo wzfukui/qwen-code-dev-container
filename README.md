@@ -89,7 +89,7 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.17.0
 - 支持挂载外部开发目录到 `/workspace`
 - 支持通过标准 `settings.json` 对接任意 OpenAI 兼容接口
 - 预装常用 Python 研发组件、数据库客户端、Kafka 组件和 `fastmcp`
-- 预装现场排障工具：`nano`、`curl`、`wget`、`telnet`、`nc`、`ssh`、`ping`、`dig`
+- 预装现场排障工具：`nano`、`vi`、`vim.tiny`、`curl`、`wget`、`telnet`、`nc`、`ssh`、`ping`、`dig`
 - 提供可复用的构建脚本、部署手册、使用手册和组件清单
 
 ## 一致化原则
@@ -152,7 +152,9 @@ qwen-config https://api.deepseek.com 你的Key deepseek-v4-flash
 qwen
 ```
 
-更推荐的现场做法是：直接在宿主机维护 `/data/qwen-home/settings.json`，容器里会映射为 `/root/.qwen/settings.json`，无需在容器内编辑。
+正式现场容器不建议加 `--rm`，这样容器退出后仍可用 `docker start -ai qwen-dev` 回到同一个容器。只要代码目录和 Qwen 配置目录已挂载，即使容器重建，`/data/project` 和 `/data/qwen-home` 里的数据也会保留。
+
+更推荐的现场做法是：直接在宿主机维护 `/data/qwen-home/settings.json`，容器里会映射为 `/root/.qwen/settings.json`。如果必须在容器内编辑，也可以使用预装的 `nano` 或 `vi`。
 
 ## 开发者入口
 
@@ -187,8 +189,9 @@ qwen
 
 - 通过离线介质拷贝镜像包到客户环境
 - `docker load` 导入本地镜像
+- 启动长期使用容器时使用 `--name qwen-dev --restart unless-stopped`，不使用 `--rm`
 - 启动容器时只挂载工作目录和 `/root/.qwen`
-- 进入容器后手工编辑 `/root/.qwen/settings.json`
+- 进入容器后用 `qwen-config` 生成配置，或用 `nano` / `vi` 手工编辑 `/root/.qwen/settings.json`
 - 再启动 `qwen`
 
 这样更符合上游原生用法，也避免启动参数和配置文件彼此覆盖。

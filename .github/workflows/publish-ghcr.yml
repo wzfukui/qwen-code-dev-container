@@ -98,10 +98,13 @@ jobs:
 
           \`\`\`bash
           docker load -i qwen-code-dev-${VERSION_STRIPPED}.tar.gz
-          docker run -it --rm \\
+          docker run -it --name qwen-dev \\
+            --restart unless-stopped \\
             -v /data/project:/workspace \\
             -v /data/qwen-home:/root/.qwen \\
             qwen-code-dev:${VERSION_STRIPPED}
+
+          # 容器内执行
           qwen-config https://api.deepseek.com 你的Key deepseek-v4-flash
           qwen
           \`\`\`
