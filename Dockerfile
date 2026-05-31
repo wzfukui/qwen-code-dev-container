@@ -21,8 +21,11 @@ RUN apt-get update \
         curl \
         default-mysql-client \
         dnsutils \
+        file \
         git \
+        imagemagick \
         inetutils-telnet \
+        iproute2 \
         jq \
         kcat \
         less \
@@ -35,13 +38,18 @@ RUN apt-get update \
         psmisc \
         iputils-ping \
         ripgrep \
+        redis-tools \
         rsync \
         tmux \
         tini \
+        traceroute \
         tree \
         unzip \
         vim-tiny \
         wget \
+        whois \
+        xz-utils \
+        zip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

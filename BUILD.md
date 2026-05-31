@@ -38,20 +38,20 @@ cd qwen-code-dev-container
 默认生成镜像：
 
 ```bash
-qwen-code-dev:0.17.0
+qwen-code-dev:0.17.1
 ```
 
 ## 4. 导出镜像包
 
 ```bash
 cd qwen-code-dev-container
-./scripts/save-image.sh qwen-code-dev:0.17.0 ./image/qwen-code-dev-0.17.0.tar.gz
+./scripts/save-image.sh qwen-code-dev:0.17.1 ./image/qwen-code-dev-0.17.1.tar.gz
 ```
 
 输出文件：
 
 ```bash
-./image/qwen-code-dev-0.17.0.tar.gz
+./image/qwen-code-dev-0.17.1.tar.gz
 ```
 
 ## 5. 构建后验证
@@ -61,23 +61,23 @@ cd qwen-code-dev-container
 以下 `--rm` 只用于一次性构建验证，不代表现场长期运行方式。
 
 ```bash
-docker run --rm qwen-code-dev:0.17.0 python --version
-docker run --rm qwen-code-dev:0.17.0 node --version
-docker run --rm qwen-code-dev:0.17.0 qwen --version
+docker run --rm qwen-code-dev:0.17.1 python --version
+docker run --rm qwen-code-dev:0.17.1 node --version
+docker run --rm qwen-code-dev:0.17.1 qwen --version
 ```
 
 模型冒烟验证：
 
 ```bash
 export DEEPSEEK_API_KEY=你的DeepSeek Key
-./scripts/model-smoke-test.sh qwen-code-dev:0.17.0 /tmp
+./scripts/model-smoke-test.sh qwen-code-dev:0.17.1 /tmp
 ```
 
 如需验证 Anthropic 兼容入口：
 
 ```bash
 export DEEPSEEK_API_KEY=你的DeepSeek Key
-SMOKE_AUTH_TYPE=anthropic ./scripts/model-smoke-test.sh qwen-code-dev:0.17.0 /tmp
+SMOKE_AUTH_TYPE=anthropic ./scripts/model-smoke-test.sh qwen-code-dev:0.17.1 /tmp
 ```
 
 已验证模型：
@@ -97,7 +97,7 @@ SMOKE_AUTH_TYPE=anthropic ./scripts/model-smoke-test.sh qwen-code-dev:0.17.0 /tm
 
 建议将以下内容作为交付产物保留：
 
-- 镜像包 `qwen-code-dev-0.17.0.tar.gz`
+- 镜像包 `qwen-code-dev-0.17.1.tar.gz`
 - [FIELD_USAGE.md](./FIELD_USAGE.md)
 - [PYTHON_COMPONENTS.md](./PYTHON_COMPONENTS.md)
 - 可选的样例 `.env` 或现场启动脚本

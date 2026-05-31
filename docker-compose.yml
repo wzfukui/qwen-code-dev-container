@@ -1,6 +1,6 @@
 services:
   qwen-code-dev:
-    image: ${IMAGE_TAG:-qwen-code-dev:0.17.0}
+    image: ${IMAGE_TAG:-qwen-code-dev:0.17.1}
     container_name: ${CONTAINER_NAME:-qwen-dev}
     restart: unless-stopped
     stdin_open: true

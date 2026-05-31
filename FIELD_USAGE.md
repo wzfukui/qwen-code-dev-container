@@ -9,14 +9,14 @@
 标准方式就是：
 
 ```bash
-docker load -i qwen-code-dev-0.17.0.tar.gz
+docker load -i qwen-code-dev-0.17.1.tar.gz
 ```
 
 ## 1. 你会拿到什么
 
 现场建议交付以下文件：
 
-- `qwen-code-dev-0.17.0.tar.gz`
+- `qwen-code-dev-0.17.1.tar.gz`
 - `FIELD_USAGE.md`
 - `PYTHON_COMPONENTS.md`
 
@@ -31,13 +31,13 @@ docker load -i qwen-code-dev-0.17.0.tar.gz
 假设你已经拿到了镜像包：
 
 ```bash
-ls -lh qwen-code-dev-0.17.0.tar.gz
+ls -lh qwen-code-dev-0.17.1.tar.gz
 ```
 
 导入 Docker：
 
 ```bash
-docker load -i qwen-code-dev-0.17.0.tar.gz
+docker load -i qwen-code-dev-0.17.1.tar.gz
 ```
 
 确认镜像存在：
@@ -65,7 +65,7 @@ mkdir -p /data/qwen-home
 推荐用 Docker Compose 启动，后续 `start`、`stop`、`logs`、`exec` 管理更清晰：
 
 ```bash
-IMAGE_TAG=qwen-code-dev:0.17.0 \
+IMAGE_TAG=qwen-code-dev:0.17.1 \
 WORKSPACE_HOST_DIR=/data/project \
 QWEN_HOME_DIR=/data/qwen-home \
 docker compose up -d
@@ -92,7 +92,7 @@ docker run -it --name qwen-dev \
   --restart unless-stopped \
   -v /data/project:/workspace \
   -v /data/qwen-home:/root/.qwen \
-  qwen-code-dev:0.17.0
+  qwen-code-dev:0.17.1
 ```
 
 正式现场使用不建议加 `--rm`。`--rm` 会在容器退出后自动删除容器实例，适合临时测试；长期使用时保留容器更方便，后续可执行：
@@ -192,10 +192,10 @@ vi --version
 
 如果你只关心“怎么用”，最短步骤就是：
 
-1. 将 `qwen-code-dev-0.17.0.tar.gz` 拷贝到现场机器
+1. 将 `qwen-code-dev-0.17.1.tar.gz` 拷贝到现场机器
 2. `mkdir -p /data/project /data/qwen-home`
-3. `docker load -i qwen-code-dev-0.17.0.tar.gz`
-4. `IMAGE_TAG=qwen-code-dev:0.17.0 WORKSPACE_HOST_DIR=/data/project QWEN_HOME_DIR=/data/qwen-home docker compose up -d`
+3. `docker load -i qwen-code-dev-0.17.1.tar.gz`
+4. `IMAGE_TAG=qwen-code-dev:0.17.1 WORKSPACE_HOST_DIR=/data/project QWEN_HOME_DIR=/data/qwen-home docker compose up -d`
 5. `docker compose exec qwen-code-dev bash`
 6. 容器里执行 `qwen-config https://api.deepseek.com 你的Key deepseek-v4-flash`
 7. 执行 `qwen`

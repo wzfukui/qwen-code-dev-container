@@ -25,9 +25,9 @@
 现场优先用离线包，并尽量减少人工操作：
 
 ```bash
-docker load -i qwen-code-dev-0.17.0.tar.gz
+docker load -i qwen-code-dev-0.17.1.tar.gz
 mkdir -p /data/project /data/qwen-home
-IMAGE_TAG=qwen-code-dev:0.17.0 docker compose up -d
+IMAGE_TAG=qwen-code-dev:0.17.1 docker compose up -d
 docker compose exec qwen-code-dev bash
 ```
 
@@ -79,7 +79,7 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:latest
 或拉取固定版本：
 
 ```bash
-docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.17.0
+docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.17.1
 ```
 
 ## 项目目标
@@ -87,8 +87,8 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.17.0
 - 在容器内直接运行 `qwen`
 - 支持挂载外部开发目录到 `/workspace`
 - 支持通过标准 `settings.json` 对接任意 OpenAI 兼容接口
-- 预装常用 Python 研发组件、数据库客户端、Kafka 组件和 `fastmcp`
-- 预装现场排障工具：`nano`、`vi`、`vim.tiny`、`curl`、`wget`、`telnet`、`nc`、`ssh`、`ping`、`dig`
+- 预装常用 Python 研发组件、数据库客户端、Kafka 组件、OpenAI/Anthropic SDK、`fastmcp` 和官方 `mcp` SDK
+- 预装现场排障工具：`nano`、`vi`、`vim.tiny`、`curl`、`wget`、`telnet`、`nc`、`ssh`、`ping`、`dig`、`ip`、`ss`、`traceroute`、`redis-cli`、`whois`
 - 提供可复用的构建脚本、部署手册、使用手册和组件清单
 
 ## 一致化原则
@@ -102,7 +102,7 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.17.0
 
 ## 当前版本
 
-- 项目交付版本：`0.17.0`
+- 项目交付版本：`0.17.1`
 - `qwen-code`: `0.17.0`
 - `Python`: `3.13`
 - `Node.js`: `24`
@@ -138,9 +138,9 @@ docker pull ghcr.io/wzfukui/qwen-code-dev-container:0.17.0
 最短路径如下：
 
 ```bash
-docker load -i qwen-code-dev-0.17.0.tar.gz
+docker load -i qwen-code-dev-0.17.1.tar.gz
 mkdir -p /data/project /data/qwen-home
-IMAGE_TAG=qwen-code-dev:0.17.0 docker compose up -d
+IMAGE_TAG=qwen-code-dev:0.17.1 docker compose up -d
 docker compose exec qwen-code-dev bash
 ```
 
@@ -183,7 +183,7 @@ docker compose logs -f
 - 打 `v*` 标签时自动构建并推送到 `ghcr.io/wzfukui/qwen-code-dev-container`
 - 默认输出标签：
   - `latest`
-  - `0.17.0`
+  - `0.17.1`
   - `0.17`
 - GitHub Actions 已显式启用 Node 24 运行模式，提前规避 Node 20 弃用影响
 

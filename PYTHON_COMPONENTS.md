@@ -11,7 +11,11 @@
 | `requests` | 同步 HTTP 请求 |
 | `httpx` | 同步/异步 HTTP 请求 |
 | `httpx-sse` | SSE 流式响应支持 |
+| `aiohttp` | 异步 HTTP/WebSocket 服务和客户端 |
+| `openai` | OpenAI 兼容接口 SDK |
+| `anthropic` | Anthropic 兼容接口 SDK |
 | `python-dotenv` | `.env` 配置加载 |
+| `PyYAML` | YAML 配置读写 |
 | `pydantic` | 数据校验与配置建模 |
 | `ipython` | 交互式 Python Shell |
 | `pytest` | 单元测试 |
@@ -38,7 +42,12 @@
 | `fastapi` | 轻量 API 开发 |
 | `gunicorn` | Flask 生产 WSGI Server |
 | `uvicorn` | ASGI Server |
-| `fastmcp` | MCP Server / Client 开发 |
+| `fastmcp` | 高层 MCP Server / Client 开发 |
+| `mcp` | 官方 MCP Python SDK |
+| `beautifulsoup4` | HTML/XML 解析 |
+| `lxml` | 高性能 XML/HTML 解析 |
+| `websockets` | WebSocket 异步客户端/服务端 |
+| `websocket-client` | WebSocket 同步客户端 |
 
 ## 系统工具
 
@@ -50,6 +59,9 @@
 | `qwen-config` | 本容器提供的 `settings.json` 快速生成脚本 |
 | `git` | 代码仓库操作 |
 | `curl` / `wget` | HTTP 下载与调试 |
+| `file` | 文件类型识别 |
+| `zip` / `unzip` | ZIP 压缩和解压 |
+| `xz-utils` | XZ 压缩和解压 |
 | `nano` | 终端编辑器，适合现场快速改配置 |
 | `vi` / `vim.tiny` | 终端编辑器，Debian `vim-tiny` 提供 |
 | `less` | 分页查看文本 |
@@ -59,16 +71,21 @@
 | `procps` | `ps` 等进程工具 |
 | `psmisc` | `killall`、`pstree` 等进程工具 |
 | `jq` | JSON 处理 |
+| `imagemagick` (`convert` / `identify`) | 图片格式转换和基础处理 |
 | `kcat` | Kafka 命令行读写 |
 | `postgresql-client` | `psql` 客户端 |
 | `default-mysql-client` | `mysql` 客户端 |
+| `redis-tools` | `redis-cli` 客户端 |
 | `openssh-client` | SSH / Git over SSH |
 | `inetutils-telnet` | Telnet 连通性测试 |
 | `netcat-openbsd` | TCP/UDP 探测 |
 | `dnsutils` | DNS 解析排查 |
 | `iputils-ping` | 网络连通性排查 |
+| `iproute2` | `ip` / `ss` 网络排查 |
+| `traceroute` | 路由追踪 |
+| `openssl` | TLS/证书调试 |
+| `whois` | 域名/IP 注册信息查询 |
 | `rsync` | 目录同步 |
 | `tmux` | 会话保持 |
 | `tini` | 容器 init 进程 |
-| `unzip` | 解压 ZIP 文件 |
 | `ca-certificates` | HTTPS 证书信任链 |

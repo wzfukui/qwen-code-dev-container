@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-IMAGE_TAG="${1:-qwen-code-dev:0.17.0}"
+IMAGE_TAG="${1:-qwen-code-dev:0.17.1}"
 WORKSPACE_DIR="${2:-$(pwd)}"
 
 SMOKE_AUTH_TYPE="${SMOKE_AUTH_TYPE:-openai}"

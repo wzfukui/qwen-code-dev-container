@@ -22,7 +22,7 @@
 
 - 源码仓库内容
 - Release Notes
-- 附件 `qwen-code-dev-0.17.0.tar.gz`
+- 附件 `qwen-code-dev-0.17.1.tar.gz`
 - 附件 `FIELD_USAGE.md`
 - 附件 `PYTHON_COMPONENTS.md`
 - 附件 `docker-compose.yml`
@@ -37,7 +37,7 @@
 
 ```bash
 release/
-  qwen-code-dev-0.17.0.tar.gz
+  qwen-code-dev-0.17.1.tar.gz
   FIELD_USAGE.md
   PYTHON_COMPONENTS.md
   docker-compose.yml
@@ -49,31 +49,31 @@ release/
 
 ```bash
 cd release
-shasum -a 256 qwen-code-dev-0.17.0.tar.gz > checksums.txt
+shasum -a 256 qwen-code-dev-0.17.1.tar.gz > checksums.txt
 ```
 
 ## 4. 打 Git 标签
 
 ```bash
-git tag -a v0.17.0 -m "Release v0.17.0"
-git push origin v0.17.0
+git tag -a v0.17.1 -m "Release v0.17.1"
+git push origin v0.17.1
 ```
 
 推送标签后，仓库内的 GitHub Actions 会自动把镜像推送到：
 
 ```bash
-ghcr.io/wzfukui/qwen-code-dev-container:0.17.0
+ghcr.io/wzfukui/qwen-code-dev-container:0.17.1
 ghcr.io/wzfukui/qwen-code-dev-container:0.17
 ghcr.io/wzfukui/qwen-code-dev-container:latest
 ```
 
 同时还会自动完成以下动作：
 
-- 从已发布镜像生成离线包 `qwen-code-dev-0.17.0.tar.gz`
+- 从已发布镜像生成离线包 `qwen-code-dev-0.17.1.tar.gz`
 - 生成 `checksums.txt`
 - 自动创建或更新同名 GitHub Release
 - 自动上传以下 Release 附件：
-  - `qwen-code-dev-0.17.0.tar.gz`
+  - `qwen-code-dev-0.17.1.tar.gz`
   - `FIELD_USAGE.md`
   - `PYTHON_COMPONENTS.md`
   - `docker-compose.yml`
@@ -85,10 +85,10 @@ ghcr.io/wzfukui/qwen-code-dev-container:latest
 如果需要手工创建，示例：
 
 ```bash
-gh release create v0.17.0 \
-  --title "v0.17.0" \
+gh release create v0.17.1 \
+  --title "v0.17.1" \
   --notes "现场交付版本，包含 qwen-code 开发容器、现场使用文档和 Python 组件清单。" \
-  /path/to/release/qwen-code-dev-0.17.0.tar.gz \
+  /path/to/release/qwen-code-dev-0.17.1.tar.gz \
   /path/to/release/FIELD_USAGE.md \
   /path/to/release/PYTHON_COMPONENTS.md \
   /path/to/release/docker-compose.yml \
